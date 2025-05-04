@@ -1,0 +1,19 @@
+/* src/components/Forum/SubscribeButton.module.css */
+.subButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 110px; /* Ensure minimum width */
+    justify-content: center; /* Center content */
+}
+
+/* Hide text on very small layouts if needed */
+/* @media (max-width: 400px) {
+    .buttonText {
+         display: none;
+    }
+     .subButton {
+         min-width: auto;
+         padding: 0.4rem;
+     }
+} */

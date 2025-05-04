@@ -1,0 +1,112 @@
+/* src/components/Forum/ForumCard.module.css */
+.forumCard {
+    /* Inherits base from .card */
+    padding: 0; /* Remove card padding, manage internally */
+    overflow: hidden; /* Ensure banner stays contained */
+  }
+  
+  .bannerPlaceholder {
+      height: 80px; /* Smaller banner for card */
+      border-bottom: 1px solid var(--color-border);
+      border-radius: var(--border-radius) var(--border-radius) 0 0; /* Top corners rounded */
+      background-size: cover;
+      background-position: center;
+  }
+  
+  .forumInfo {
+      display: flex;
+      align-items: flex-start; /* Align items to the top */
+      padding: 1rem;
+      gap: 1rem;
+  }
+  
+  .forumIcon {
+      width: 45px; /* Slightly larger icon */
+      height: 45px;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      /* margin-top: -25px; */ /* Optional: Overlap banner slightly */
+      /* border: 3px solid var(--color-surface); */ /* Optional: White border */
+  }
+  
+  .forumDetails {
+      flex-grow: 1;
+      min-width: 0; /* Allow text to wrap properly */
+  }
+  
+  .forumNameLink {
+      text-decoration: none;
+      color: inherit;
+  }
+  .forumNameLink:hover .forumName {
+      color: var(--color-primary-dark);
+  }
+  
+  .forumName {
+      margin-bottom: 0.25rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--color-text-primary);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+  }
+  
+  .forumDescription {
+      font-size: 0.9rem;
+      color: var(--color-text-secondary);
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+      /* Limit description lines in card view */
+       display: -webkit-box;
+       -webkit-line-clamp: 2; /* Show max 2 lines */
+       -webkit-box-orient: vertical;
+       overflow: hidden;
+       text-overflow: ellipsis;
+  }
+  
+  .memberCount {
+      font-size: 0.8rem;
+      color: var(--color-text-secondary);
+      font-weight: 500;
+  }
+  
+  .subscribeAction {
+      margin-left: auto; /* Push button to the right */
+      align-self: center; /* Center vertically within the flex row */
+      flex-shrink: 0;
+  }
+  
+  
+  /* Styles for recommendation variant */
+  .recommendation .forumInfo {
+      align-items: center; /* Center vertically */
+  }
+  .recommendation .forumDescription {
+       -webkit-line-clamp: 1; /* Only 1 line for recommendations */
+       margin-bottom: 0.25rem;
+  }
+  
+  .viewButtonLink {
+      margin-left: auto;
+      align-self: center;
+      padding: 0 1rem 1rem 1rem; /* Add padding around button */
+  }
+  
+  .viewButton {
+      /* Basic button styling, can use Button component too */
+      padding: 0.3rem 0.8rem;
+      font-size: 0.85rem;
+      border-radius: 15px;
+      background-color: var(--color-secondary);
+      border: 1px solid var(--color-border);
+      color: var(--color-primary-dark);
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+  .viewButton:hover {
+      background-color: var(--color-primary);
+      border-color: var(--color-primary-dark);
+      color: white;
+  }

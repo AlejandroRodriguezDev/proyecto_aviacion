@@ -1,0 +1,53 @@
+/* src/components/Common/InputField.module.css */
+.formGroup {
+    margin-bottom: 1rem;
+  }
+  
+  .label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+  
+  .input {
+    display: block;
+    width: 100%;
+    padding: 0.65rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--color-text-primary);
+    background-color: var(--color-surface);
+    background-clip: padding-box;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  
+  .input:focus {
+    color: var(--color-text-primary);
+    background-color: var(--color-surface);
+    border-color: var(--color-primary);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(160, 196, 255, 0.35); /* Light blue glow */
+  }
+  
+  .input::placeholder {
+    color: var(--color-text-secondary);
+    opacity: 1;
+  }
+  
+  .errorInput {
+    border-color: var(--color-error); /* Use pastel red */
+  }
+  .errorInput:focus {
+      border-color: var(--color-error);
+      box-shadow: 0 0 0 0.2rem rgba(255, 173, 173, 0.35); /* Light red glow */
+  }
+  
+  
+  .errorMessage {
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+    color: #dc3545; /* A slightly stronger red for error text */
+  }

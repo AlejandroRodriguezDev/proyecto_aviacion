@@ -1,0 +1,110 @@
+/* src/components/Common/Navbar.module.css */
+.navbar {
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    padding: 0.75rem 0; /* Slightly taller */
+    position: sticky;
+    top: 0;
+    z-index: 1050; /* High z-index */
+    box-shadow: var(--box-shadow);
+  }
+  
+  .navContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem; /* Gap between main sections */
+  }
+  
+  .logo {
+    font-size: 1.6rem; /* Larger logo */
+    font-weight: 700; /* Bolder */
+    color: var(--color-primary-dark);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0; /* Prevent shrinking */
+  }
+  .logoText {
+      display: none; /* Hide text on smaller screens initially */
+  }
+  @media (min-width: 768px) {
+      .logoText {
+          display: inline; /* Show text on medium screens and up */
+      }
+  }
+  
+  
+  .logo:hover {
+    text-decoration: none;
+    opacity: 0.9;
+  }
+  
+  .searchContainer {
+    flex-grow: 1;
+    max-width: 600px; /* Allow wider search */
+    min-width: 150px; /* Ensure it doesn't collapse too much */
+  }
+  
+  .navMenu {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0; /* Prevent shrinking */
+  }
+  
+  .userMenu {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; /* Consistent gap */
+  }
+  
+  .userLink {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--color-text-primary);
+    padding: 5px; /* Add padding for better click area */
+    border-radius: var(--border-radius);
+    transition: background-color 0.2s ease;
+  }
+  .userLink:hover {
+    background-color: var(--color-secondary);
+    text-decoration: none;
+    color: var(--color-primary-dark);
+  }
+  
+  .avatarPlaceholder {
+    width: 32px; /* Slightly smaller avatar in navbar */
+    height: 32px;
+    font-size: 0.9rem;
+  }
+  
+  .username {
+      font-weight: 500;
+      display: none; /* Hide username on small screens */
+  }
+  @media (min-width: 992px) { /* Show on large screens */
+      .username {
+          display: inline;
+      }
+  }
+  
+  
+  .authButtons {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+  }
+  /* Ensure buttons in navbar align text */
+   .navMenu button > svg {
+      margin-right: 0.3em;
+      vertical-align: middle; /* Align icon better */
+   }
+   /* Hide text on small icon buttons if needed */
+    @media (max-width: 576px) {
+       .navMenu button[title] > *:not(svg) { /* Hide text if button has title and non-svg children */
+          /* display: none; */ /* Uncomment if you want icon-only on small screens */
+       }
+    }

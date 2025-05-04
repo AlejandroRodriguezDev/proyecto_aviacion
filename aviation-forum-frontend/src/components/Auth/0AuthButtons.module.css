@@ -1,0 +1,31 @@
+/* src/components/Auth/OAuthButtons.module.css */
+.oauthContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem; /* Space between buttons */
+    width: 100%;
+    margin-top: 1rem; /* Space above buttons */
+  }
+  
+  .oauthButton {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem; /* Space between icon and text */
+  }
+  
+  .icon {
+    font-size: 1.2em; /* Slightly larger icon */
+  }
+  
+  /* Optional: Specific styling for facebook button */
+  /* .facebook {
+    background-color: #3b5998;
+    border-color: #3b5998;
+    color: white;
+  }
+  .facebook:hover:not(:disabled) {
+     background-color: #2d4373;
+     border-color: #2d4373;
+  } */

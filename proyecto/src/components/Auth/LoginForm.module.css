@@ -1,0 +1,19 @@
+/* src/components/Auth/LoginForm.module.css */
+.form {
+    width: 100%;
+  }
+  
+  .formError {
+    color: #dc3545;
+    background-color: var(--color-error); /* Pastel red background */
+    border: 1px solid #efa2a9;
+    padding: 0.75rem 1rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .submitButton {
+    width: 100%; /* Make button full width */
+    margin-top: 0.5rem; /* Add some space above button */
+  }
