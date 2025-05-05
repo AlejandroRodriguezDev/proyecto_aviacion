@@ -1,171 +1,168 @@
 /* src/components/Post/PostCard.module.css */
 .postCard {
-    /* card class from global.css provides base */
-    display: flex; /* Could use flex for side vote bar later */
-    transition: box-shadow 0.2s ease-in-out;
-    position: relative; /* For absolute positioned elements like delete button */
-  }
-  .postCard:hover {
-      border-color: var(--color-primary);
-      box-shadow: var(--box-shadow-lg);
-  }
-  
-  .loadingState {
-      min-height: 100px; /* Placeholder height */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--color-text-secondary);
-  }
-  
-  /* Optional: Sidebar for votes (like Reddit) */
-  /* .voteSidebar {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-right: 15px;
-    margin-right: 15px;
-    border-right: 1px solid var(--color-border);
-    flex-shrink: 0;
-  } */
-  
-  .postContent {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .postHeader {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem; /* Consistent gap */
-    font-size: 0.8rem; /* Smaller header text */
-    color: var(--color-text-secondary);
-    margin-bottom: 0.5rem; /* Less space below header */
-  }
-  .separator {
-      color: var(--color-border);
-  }
-  
-  .forumLink {
-    font-weight: 600;
-    color: var(--color-primary-dark); /* Use the darker primary for links */
-    text-decoration: none;
-  }
-  .forumLink:hover {
-      text-decoration: underline;
-      color: var(--color-primary);
-  }
-  
-  
-  .userLink {
-    color: var(--color-text-secondary); /* Subtler user link */
-    text-decoration: none;
-    font-weight: 500;
-  }
-  .userLink:hover {
-      text-decoration: underline;
-      color: var(--color-text-primary);
-  }
-  
-  
-  .postTime {
-    white-space: nowrap;
-    /* Removed margin-left: auto to keep flow */
-  }
-  
-  .titleLink {
-    text-decoration: none;
-    color: inherit;
-  }
-  
-  .postTitle {
-    margin-top: 0;
-    margin-bottom: 0.75rem;
-    font-size: 1.3rem; /* Slightly larger title */
-    font-weight: 600;
-    color: var(--color-text-primary);
-    line-height: 1.3;
-     transition: color 0.2s ease;
-  }
-  .titleLink:hover .postTitle {
-    color: var(--color-primary-dark);
-  }
-  
-  
-  .postDescription {
-    /* Styles for description if shown on card (use PostDetail for full view) */
-    font-size: 0.95rem;
-    color: var(--color-text-secondary);
-    line-height: 1.5;
-    margin-bottom: 1rem;
-    /* Optional: Limit lines on card view */
-     /* display: -webkit-box;
-     -webkit-line-clamp: 3;
-     -webkit-box-orient: vertical;
-     overflow: hidden;
-     text-overflow: ellipsis; */
-  }
-  
-  .postFooter {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap; /* Allow wrapping on small screens */
-    gap: 1rem; /* Space between footer items */
-    margin-top: auto; /* Pushes footer to bottom */
-    padding-top: 0.75rem;
-    border-top: 1px solid var(--color-secondary); /* Lighter border */
-    font-size: 0.85rem; /* Smaller footer text */
-  }
-  
-  .commentsLink {
-    color: var(--color-text-secondary);
-    display: inline-flex; /* Use inline-flex */
-    align-items: center;
-    gap: 0.4rem; /* Space between icon and text */
-    text-decoration: none;
-    transition: color 0.2s ease;
-    font-weight: 500;
-  }
-  .commentsLink:hover {
-    color: var(--color-primary-dark);
-    text-decoration: none;
-  }
-  
-  .commentText {
-      display: none; /* Hide text on very small screens */
-  }
-  @media (min-width: 400px) {
-      .commentText {
-          display: inline; /* Show text when space allows */
-      }
-  }
-  
-  
-  .deleteButton {
-      margin-left: auto; /* Pushes delete button to the far right */
-      color: var(--color-dislike); /* Use dislike color for danger */
-      background-color: transparent;
-      border-color: transparent;
-      padding: 0.3rem 0.5rem; /* Consistent with vote buttons */
-  }
-  
-  .deleteButton:hover:not(:disabled) {
-      background-color: rgba(255, 173, 173, 0.1); /* Faint red background */
-      color: #dc3545; /* Stronger red on hover */
-  }
-  .deleteButton svg {
-      margin-right: 0.4em;
-  }
-  .deleteText {
-      display: none;
-  }
-  @media (min-width: 576px) { /* Show delete text on larger screens */
-      .deleteText {
-          display: inline;
-      }
-       .deleteButton svg {
-          margin-right: 0.4em; /* Keep margin when text visible */
-      }
-  }
+  display: flex;
+  transition: box-shadow 0.2s ease-in-out, border-color 0.15s ease;
+  position: relative;
+  /* Usa .card base */
+  /* padding: 1rem; Sobreescribe padding de .card si es necesario */
+}
+.postCard:hover {
+  border-color: var(--color-border);
+  box-shadow: var(--box-shadow-lg);
+}
+
+/* Estado de Carga/Placeholder */
+.loadingState {
+  min-height: 120px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--color-text-secondary); font-style: italic;
+   opacity: 0.7;
+}
+
+/* Contenido principal */
+.postContent {
+flex-grow: 1;
+display: flex;
+flex-direction: column; /* Apila header, título, footer */
+min-width: 0; /* Para que el contenido no desborde */
+}
+
+/* Cabecera (Foro, User, Tiempo) */
+.postHeader {
+display: flex;
+align-items: center;
+flex-wrap: wrap; /* Permite que elementos bajen si no caben */
+gap: 0.3rem 0.6rem; /* Espacio vertical y horizontal */
+font-size: 0.8rem; /* Texto pequeño */
+color: var(--color-text-secondary);
+margin-bottom: 0.75rem; /* Espacio antes del título */
+}
+.separator {
+color: var(--color-border);
+padding: 0 0.1rem;
+font-size: 0.8em; /* Más pequeño */
+ opacity: 0.7;
+}
+
+.forumLink {
+font-weight: 600;
+color: var(--color-primary-dark);
+text-decoration: none;
+white-space: nowrap; /* Evita partir el nombre del foro */
+}
+.forumLink:hover { text-decoration: underline; color: var(--color-primary); }
+
+.userInfo { display: inline-flex; align-items: center; gap: 0.3rem; flex-shrink: 0; }
+.userLink {
+color: var(--color-text-secondary); /* Color secundario para el link */
+text-decoration: none;
+font-weight: 500;
+ display: inline-flex; align-items: center; gap: 0.4rem; /* Espacio avatar/nombre */
+}
+.userLink:hover { text-decoration: underline; color: var(--color-text-primary); }
+
+/* Avatar en la tarjeta */
+.avatarPostCard {
+ width: 20px; height: 20px; font-size: 0.7rem;
+ /* Hereda .avatar-placeholder base */
+  border-width: 1px; /* Borde más fino */
+}
+
+/* Tiempo (link al post) */
+.timeLink {
+ text-decoration: none; color: inherit; /* Mismo color que texto secundario */
+ margin-left: auto;     /* Empuja a la derecha */
+ padding-left: 0.5rem;   /* Espacio si está junto a otro elemento */
+ white-space: nowrap;
+}
+.timeLink:hover { text-decoration: underline; }
+.postTime {}
+
+@media (max-width: 500px) { /* Ajuste para móvil */
+   .timeLink { margin-left: 0; flex-basis: 100%; margin-top: 0.2rem;}
+}
+
+
+/* Título */
+.titleLink {
+text-decoration: none;
+color: inherit;
+ display: block;         /* Ocupa su línea */
+ margin-bottom: 0.6rem;  /* Espacio antes del footer/descripción */
+}
+.postTitle {
+margin: 0;
+font-size: 1.2rem;      /* Tamaño título en tarjeta */
+font-weight: 600;
+color: var(--color-text-primary);
+line-height: 1.35;       /* Interlineado */
+transition: color 0.2s ease;
+word-wrap: break-word;  /* Permite partir palabras largas */
+overflow-wrap: break-word;
+}
+.titleLink:hover .postTitle { color: var(--color-primary-dark); }
+
+/* Descripción (si se muestra snippet) */
+.postDescription {
+font-size: 0.9rem; color: var(--color-text-secondary);
+line-height: 1.5; margin-bottom: 1rem;
+ display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+ overflow: hidden; text-overflow: ellipsis;
+}
+
+/* Pie de la tarjeta */
+.postFooter {
+display: flex;
+align-items: center;
+flex-wrap: wrap;         /* Ajuste en móvil */
+gap: 0.5rem 1rem;       /* Espacio entre acciones */
+margin-top: auto;       /* Empuja al fondo */
+padding-top: 0.75rem;
+border-top: 1px solid var(--color-secondary); /* Borde separador */
+font-size: 0.85rem;     /* Texto de acciones */
+}
+
+/* Estilo base para botones de acción en footer */
+.actionButton {
+  color: var(--color-text-secondary);
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  text-decoration: none;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  font-weight: 500;
+  padding: 0.35rem 0.6rem; /* Padding ajustado */
+  border-radius: var(--border-radius);
+  background: none; border: none; cursor: pointer;
+   line-height: 1; /* Evita espacio extra vertical */
+}
+.actionButton:hover:not(:disabled) {
+color: var(--color-primary-dark);
+background-color: var(--color-secondary);
+}
+.actionButton:disabled {
+   opacity: 0.6; cursor: not-allowed;
+}
+.actionButton svg {
+  font-size: 1em; /* Icono relativo a texto */
+   /* vertical-align: middle; Podría necesitar ajuste */
+}
+
+/* Texto numérico y etiqueta de acción */
+.actionText { font-weight: 600; }
+.actionLabel { display: none; } /* Oculto en tarjeta por defecto */
+@media (min-width: 576px) { .actionLabel { display: inline; margin-left: 0.2em; } }
+
+/* Botones específicos */
+.commentsLink {} /* Ya tiene estilo base */
+
+.deleteButton {
+  color: var(--color-dislike-active); /* Rojo */
+  margin-left: auto;             /* Empuja a la derecha */
+}
+.deleteButton:hover:not(:disabled) {
+   background-color: rgba(230, 57, 70, 0.1); /* Fondo rojo claro hover */
+}
+
+.bookmarked svg { /* Icono más oscuro si está guardado */
+  color: var(--color-primary-dark);
+}
+.deleteText {} /* Oculto por .actionLabel */

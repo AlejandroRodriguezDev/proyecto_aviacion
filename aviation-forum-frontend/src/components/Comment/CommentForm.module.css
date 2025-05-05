@@ -1,0 +1,68 @@
+/* src/components/Comment/CommentForm.module.css */
+.commentForm {
+    margin-top: 1rem;        /* Espacio arriba */
+    margin-bottom: 1rem;     /* Espacio abajo */
+    padding-top: 1rem;       /* Espacio interno superior */
+    border-top: 1px solid var(--color-secondary); /* Línea separadora ligera */
+    position: relative;      /* Para posicionar mensajes de error/carga */
+  }
+  /* Estilo específico para formulario de respuesta */
+  .replyForm {
+      margin-top: 0.75rem;     /* Menos espacio si es respuesta */
+      margin-bottom: 0.5rem;
+      padding-top: 0.5rem;
+      border-top: 1px dashed var(--color-secondary); /* Línea punteada para respuesta */
+  }
+  
+  /* Prompt para iniciar sesión */
+  .loginPrompt {
+      font-size: 0.9rem; color: var(--color-text-secondary);
+      margin: 1.5rem 0; padding: 1rem; text-align: center;
+      background-color: var(--color-secondary);
+      border-radius: var(--border-radius);
+  }
+  .loginPrompt a { font-weight: 600; color: var(--color-primary-dark); }
+  
+  /* Mensaje de Error */
+  .formError {
+      color: var(--color-error-text);
+      font-size: 0.875rem;    /* Ligeramente más pequeño */
+      margin-bottom: 0.5rem;  /* Espacio debajo del error */
+       padding: 0.5rem;        /* Padding interno opcional */
+       /* background-color: rgba(255, 0, 0, 0.05); */ /* Fondo muy sutil */
+  }
+  
+  /* Textarea */
+  .textarea {
+    display: block; width: 100%;
+    padding: 0.7rem 0.85rem;
+    font-size: 0.95rem;       /* Tamaño fuente */
+    line-height: 1.6;         /* Interlineado cómodo */
+    color: var(--color-text-primary);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    resize: vertical;       /* Permitir redimensionar */
+    margin-bottom: 0.75rem; /* Espacio antes de botones */
+    min-height: 80px;       /* Altura mínima */
+    font-family: inherit;
+  }
+  .textarea:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(160, 196, 255, 0.35);
+      outline: 0;
+  }
+  .textarea::placeholder { color: var(--color-text-secondary); opacity: 0.8; }
+   /* Estado de carga (deshabilitado) */
+   .textarea:disabled { background-color: #f8f9fa; cursor: not-allowed; }
+  
+  /* Contenedor Botones */
+  .formActions {
+    display: flex;
+    justify-content: flex-end; /* Botones a la derecha */
+    gap: 0.5rem;              /* Espacio entre botones */
+  }
+  
+  /* Clase global visually-hidden necesaria */
+  .visually-hidden { /* ... estilos como en global.css ... */ }

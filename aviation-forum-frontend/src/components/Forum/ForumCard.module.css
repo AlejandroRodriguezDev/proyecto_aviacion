@@ -1,112 +1,133 @@
 /* src/components/Forum/ForumCard.module.css */
 .forumCard {
-    /* Inherits base from .card */
-    padding: 0; /* Remove card padding, manage internally */
-    overflow: hidden; /* Ensure banner stays contained */
-  }
-  
-  .bannerPlaceholder {
-      height: 80px; /* Smaller banner for card */
-      border-bottom: 1px solid var(--color-border);
-      border-radius: var(--border-radius) var(--border-radius) 0 0; /* Top corners rounded */
-      background-size: cover;
-      background-position: center;
-  }
-  
-  .forumInfo {
-      display: flex;
-      align-items: flex-start; /* Align items to the top */
-      padding: 1rem;
-      gap: 1rem;
-  }
-  
-  .forumIcon {
-      width: 45px; /* Slightly larger icon */
-      height: 45px;
-      font-size: 1.2rem;
-      flex-shrink: 0;
-      /* margin-top: -25px; */ /* Optional: Overlap banner slightly */
-      /* border: 3px solid var(--color-surface); */ /* Optional: White border */
-  }
-  
-  .forumDetails {
-      flex-grow: 1;
-      min-width: 0; /* Allow text to wrap properly */
-  }
-  
-  .forumNameLink {
-      text-decoration: none;
-      color: inherit;
-  }
-  .forumNameLink:hover .forumName {
-      color: var(--color-primary-dark);
-  }
-  
-  .forumName {
-      margin-bottom: 0.25rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--color-text-primary);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-  }
-  
-  .forumDescription {
-      font-size: 0.9rem;
-      color: var(--color-text-secondary);
-      margin-bottom: 0.5rem;
-      line-height: 1.4;
-      /* Limit description lines in card view */
-       display: -webkit-box;
-       -webkit-line-clamp: 2; /* Show max 2 lines */
-       -webkit-box-orient: vertical;
-       overflow: hidden;
-       text-overflow: ellipsis;
-  }
-  
-  .memberCount {
-      font-size: 0.8rem;
-      color: var(--color-text-secondary);
-      font-weight: 500;
-  }
-  
-  .subscribeAction {
-      margin-left: auto; /* Push button to the right */
-      align-self: center; /* Center vertically within the flex row */
-      flex-shrink: 0;
-  }
-  
-  
-  /* Styles for recommendation variant */
-  .recommendation .forumInfo {
-      align-items: center; /* Center vertically */
-  }
-  .recommendation .forumDescription {
-       -webkit-line-clamp: 1; /* Only 1 line for recommendations */
-       margin-bottom: 0.25rem;
-  }
-  
-  .viewButtonLink {
-      margin-left: auto;
-      align-self: center;
-      padding: 0 1rem 1rem 1rem; /* Add padding around button */
-  }
-  
-  .viewButton {
-      /* Basic button styling, can use Button component too */
-      padding: 0.3rem 0.8rem;
-      font-size: 0.85rem;
-      border-radius: 15px;
-      background-color: var(--color-secondary);
-      border: 1px solid var(--color-border);
-      color: var(--color-primary-dark);
-      cursor: pointer;
-      font-weight: 500;
-      transition: background-color 0.2s ease, border-color 0.2s ease;
-  }
-  .viewButton:hover {
-      background-color: var(--color-primary);
-      border-color: var(--color-primary-dark);
-      color: white;
-  }
+    /* Hereda .card base */
+    padding: 0;             /* Sin padding base, gestionado internamente */
+    overflow: hidden;         /* Oculta overflow (banner zoom) */
+    display: flex;
+    flex-direction: column; /* Apila banner e info */
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+ .forumCard:hover {
+    /* transform: translateY(-2px); /* Efecto sutil de elevación */
+    box-shadow: var(--box-shadow-lg);
+ }
+
+/* Estilo de Placeholder (si es necesario) */
+.placeholder {
+    min-height: 100px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--color-text-secondary); font-style: italic;
+     border: 1px dashed var(--color-border);
+}
+
+/* Banner */
+.bannerLink {
+    display: block;
+    text-decoration: none;
+    overflow: hidden; /* Necesario para contener el zoom del placeholder */
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+.bannerPlaceholder {
+    height: 70px; /* Altura del banner */
+    border-bottom: 1px solid var(--color-border);
+    background-size: cover;
+    background-position: center;
+    background-color: var(--color-primary); /* Fondo fallback */
+    transition: transform 0.3s ease, filter 0.3s ease;
+     display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.bannerLink:hover .bannerPlaceholder {
+    transform: scale(1.08); /* Zoom */
+    filter: brightness(1.05); /* Ligero brillo */
+}
+ .bannerText { /* Texto dentro del banner (si no hay imagen) */
+    font-size: 1.1rem;
+    color: var(--color-surface);
+    font-weight: 600;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+    padding: 0 0.5rem;
+    text-align: center;
+ }
+
+
+/* Info Contenedor */
+.forumInfo {
+    display: flex;
+    align-items: center;      /* Centrar verticalmente */
+    padding: 0.8rem 1rem;     /* Padding de la sección de info */
+    gap: 0.8rem;              /* Espacio entre icono, detalles, acción */
+    background-color: var(--color-surface);
+    flex-grow: 1;             /* Ocupa espacio restante */
+}
+
+/* Icono */
+.iconLink { display: block; flex-shrink: 0; }
+.forumIcon {
+    width: 42px;              /* Tamaño del icono */
+    height: 42px;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    border: 2px solid var(--color-surface); /* Borde para efecto overlay */
+    margin-top: -15px;        /* Superpone ligeramente sobre el banner (si existe) */
+     z-index: 1;               /* Asegura que esté por encima del banner */
+     box-shadow: 0 1px 2px rgba(0,0,0,0.1); /* Sombra sutil al icono */
+     /* Hereda avatar-placeholder base */
+}
+ /* Ajuste de icono si NO hay banner (variante recommendation) */
+ .recommendation .forumIcon {
+     margin-top: 0; /* Sin superposición */
+     width: 36px;
+     height: 36px;
+     font-size: 1rem;
+ }
+
+/* Detalles del Foro */
+.forumDetails {
+    flex-grow: 1;         /* Ocupa espacio */
+    min-width: 0;         /* Permite que el texto se ajuste */
+     padding-left: 0.2rem; /* Pequeño espacio si el icono se superpone mucho */
+}
+ .recommendation .forumDetails { padding-left: 0; } /* Sin padding si no hay overlap */
+
+
+.forumNameLink { text-decoration: none; color: inherit; }
+.forumNameLink:hover .forumName { color: var(--color-primary-dark); }
+.forumName {
+    margin: 0 0 0.2rem 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+.forumDescription {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    margin: 0 0 0.3rem 0;
+    line-height: 1.4;
+    /* Mostrar máximo 1 línea en cards */
+    display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;
+    overflow: hidden; text-overflow: ellipsis;
+}
+.recommendation .forumDescription { display: none; } /* Ocultar desc en recomendación */
+
+.memberCount {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+}
+
+/* Contenedor del botón de acción */
+.actionButtonContainer {
+    margin-left: auto;        /* Empuja a la derecha */
+    flex-shrink: 0;         /* No se encoge */
+}
+
+/* Botón "Visitar" */
+.viewButton {
+   /* Usa el componente Button o estilos básicos */
+   /* Estilos básicos si no usas <Button/> */
+    /* padding: 0.4rem 0.9rem; font-size: 0.85rem; ... etc ... */
+}

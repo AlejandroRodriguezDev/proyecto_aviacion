@@ -1,0 +1,101 @@
+/* src/components/Common/Modal.module.css */
+.modalOverlay {
+    position: fixed;          /* Fijo en la pantalla */
+    inset: 0;                 /* Ocupa todo (top, right, bottom, left = 0) */
+    background-color: rgba(33, 37, 41, 0.65); /* Fondo oscuro semi-transparente */
+    display: flex;
+    align-items: center;        /* Centrar verticalmente */
+    justify-content: center;    /* Centrar horizontalmente */
+    z-index: 1100;            /* Por encima de la navbar */
+    padding: 1rem;              /* Espacio en bordes para pantallas pequeñas */
+     animation: fadeIn 0.25s ease-out forwards; /* Animación de entrada */
+     overflow-y: auto; /* Permite scroll si el modal es más alto que la pantalla */
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  .modalContent {
+    background-color: var(--color-surface); /* Fondo blanco */
+    padding: 0;                 /* Padding se maneja en header/body/footer */
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-lg);   /* Sombra más prominente */
+    width: 100%;              /* Ancho adaptable */
+    max-height: calc(100vh - 4rem); /* Altura máxima, deja espacio arriba/abajo */
+    display: flex;            /* Usa flex para estructura interna */
+    flex-direction: column;   /* Apila header/body/footer */
+    animation: slideIn 0.3s ease-out forwards; /* Animación de entrada */
+    position: relative;
+    outline: none;            /* Quita borde de foco */
+     /* Permite scroll interno del body si es necesario, header/footer fijos */
+     overflow: hidden; /* Contenedor principal no hace scroll */
+  }
+  
+  /* Tamaños del Modal */
+  .small { max-width: 400px; }
+  .medium { max-width: 600px; } /* Por defecto */
+  .large { max-width: 800px; }
+  
+  @keyframes slideIn {
+     from { transform: translateY(-20px) scale(0.98); opacity: 0; }
+     to { transform: translateY(0) scale(1); opacity: 1; }
+  }
+  
+  /* Encabezado */
+  .modalHeader {
+    display: flex;
+    justify-content: space-between; /* Título a la izq, botón a la der */
+    align-items: center;
+    padding: 1rem 1.5rem;          /* Padding interno */
+    border-bottom: 1px solid var(--color-border);
+    flex-shrink: 0;             /* No se encoje */
+  }
+  
+  .modalTitle {
+    margin: 0;
+    font-size: 1.3rem; /* Un poco más pequeño */
+    font-weight: 600;
+     color: var(--color-text-primary);
+  }
+  
+  .closeButton {
+    /* Botón de cerrar (usa variante link) */
+     font-size: 1.3rem;
+     color: var(--color-text-secondary);
+     padding: 0.25rem;         /* Área de click */
+     line-height: 1;           /* Ajuste vertical */
+     margin: -0.25rem;       /* Compensa padding para alineación */
+  }
+  .closeButton:hover {
+      color: var(--color-text-primary);
+      background-color: var(--color-secondary); /* Hover sutil */
+  }
+  
+  /* Cuerpo */
+  .modalBody {
+     padding: 1.5rem; /* Padding del contenido */
+     font-size: 1rem;
+     line-height: 1.6;
+      /* Permite scroll vertical SI el contenido es más largo que el espacio disponible */
+     overflow-y: auto;
+      flex-grow: 1; /* Ocupa el espacio restante */
+       color: var(--color-text-primary);
+  }
+   /* Estilos para contenido típico dentro del body */
+   .modalBody p:last-child { margin-bottom: 0; }
+  
+  
+  /* Pie */
+  .modalFooter {
+      display: flex;
+      flex-wrap: wrap;            /* Permite que los botones se ajusten */
+      justify-content: flex-end;  /* Alinea botones a la derecha */
+      gap: 0.75rem;               /* Espacio entre botones */
+      padding: 1rem 1.5rem;       /* Padding interno */
+      border-top: 1px solid var(--color-border);
+      background-color: #f9fafd; /* Fondo ligeramente diferente para el footer */
+      flex-shrink: 0;             /* No se encoje */
+      border-radius: 0 0 var(--border-radius) var(--border-radius); /* Redondeo inferior */
+  }

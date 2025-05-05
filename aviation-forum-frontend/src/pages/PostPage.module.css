@@ -1,0 +1,6 @@
+/* src/pages/PostPage.module.css */
+.postPageContainer {
+    /* Añade padding o margen si es necesario alrededor de PostDetail */
+    padding-top: 1rem; /* Ejemplo: un poco de espacio arriba */
+     /* background-color: #f0f0f0; /* Ejemplo: color de fondo diferente */
+  }

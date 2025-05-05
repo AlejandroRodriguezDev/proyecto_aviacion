@@ -1,0 +1,116 @@
+/* src/pages/HomePage.module.css */
+.homeLayout {
+    display: flex;
+    flex-direction: column;   /* Apilado en móvil */
+    gap: 1.5rem;              /* Espacio entre columnas */
+    margin-top: 1rem;         /* Espacio desde la navbar */
+  }
+  
+  @media (min-width: 992px) { /* Dos columnas en escritorio */
+    .homeLayout {
+      flex-direction: row;
+      align-items: flex-start; /* Alinea arriba */
+    }
+  }
+  
+  /* Contenedor del Feed */
+  .feedContainer {
+    flex-grow: 1;             /* Ocupa espacio disponible */
+    min-width: 0;             /* Evita overflow */
+    order: 1;                 /* Feed primero */
+  }
+  
+  @media (min-width: 992px) {
+    .feedContainer {
+      flex-basis: 70%;        /* Darle más espacio inicial */
+    }
+  }
+  
+  .feedContainer h2 {
+    font-size: 1.4rem;        /* Tamaño título */
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+  }
+  
+  /* Mensaje Feed Vacío */
+  .emptyFeedMessage {
+    text-align: center;
+    padding: 2rem 1rem;
+    background-color: var(--color-surface);
+    border: 1px dashed var(--color-border);
+    border-radius: var(--border-radius);
+    color: var(--color-text-secondary);
+    font-style: italic;
+    margin-top: 1rem;
+  }
+  
+  .emptyFeedMessage p {
+    margin: 0.5rem 0;
+  }
+  
+  .emptyFeedMessage a {
+    font-weight: 600;
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+  }
+  
+  /* Barra Lateral */
+  .sidebar {
+    width: 100%;              /* Ancho completo móvil */
+    flex-shrink: 0;
+    order: 2;                 /* Sidebar después */
+  }
+  
+  @media (min-width: 992px) {
+    .sidebar {
+      width: 320px;           /* Ancho fijo escritorio */
+      position: sticky;       /* Sidebar fija al hacer scroll */
+      top: calc(var(--navbar-height) + 1rem); /* Posición debajo de navbar */
+      align-self: flex-start;
+    }
+  }
+  
+  .sidebarSection {
+    margin-bottom: 1.5rem;   /* Espacio entre secciones sidebar */
+    background-color: var(--color-surface);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--box-shadow);
+  }
+  
+  .sidebarSection:last-child {
+    margin-bottom: 0;
+  }
+  
+  .sidebar h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-secondary);
+    color: var(--color-text-primary);
+  }
+  
+  .noRecommendations {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    text-align: center;
+    font-style: italic;
+    padding: 1rem 0;
+  }
+  
+  /* Mensaje de Error General */
+  .errorMessage {
+    color: var(--color-error-text);
+    background-color: var(--color-error);
+    border: 1px solid var(--color-error-border);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+    margin-top: 1rem;
+  }
+  

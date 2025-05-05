@@ -1,58 +1,85 @@
 /* src/components/Post/PostSortOptions.module.css */
 .sortContainer {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 1rem; /* Space below sorter */
-    padding: 0.5rem;
-    background-color: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--border-radius);
-    font-size: 0.9rem;
-  }
-  
-  .sortIcon {
-      color: var(--color-text-secondary);
-      margin-right: 0.3rem;
-  }
-  
-  .sortLabel {
-    font-weight: 500;
-    color: var(--color-text-secondary);
-    margin-right: 0.5rem; /* Space after label */
-  }
-  
-  .sortButton {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.4rem 0.8rem;
-    border: 1px solid transparent; /* Keep same height */
-    background-color: transparent;
-    border-radius: 15px; /* Pill shape */
-    cursor: pointer;
-    color: var(--color-text-secondary);
-    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-    font-weight: 500;
-  }
-  
-  .sortButton:hover:not(.active) {
-    background-color: var(--color-secondary);
-    color: var(--color-text-primary);
-  }
-  
-  .sortButton.active {
-    background-color: var(--color-primary);
-    color: var(--color-surface); /* White text on active */
-    border-color: var(--color-primary-dark);
-    font-weight: 600;
-  }
-  
-  .buttonLabel {
-      display: none; /* Hide label on small screens */
-  }
-   @media (min-width: 576px) {
-      .buttonLabel {
-          display: inline; /* Show label on larger screens */
-      }
-   }
+  display: flex;              /* Alinea icono y botones */
+  align-items: center;        /* Centra verticalmente */
+  gap: 0.6rem;              /* Espacio entre icono y botones */
+  margin-bottom: 1.25rem;     /* Espacio debajo */
+  padding: 0.6rem 0.8rem;     /* Padding interno */
+  background-color: var(--color-surface); /* Fondo */
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+   overflow-x: auto;           /* Scroll horizontal si no caben */
+   scrollbar-width: thin;      /* Estilo scroll Firefox */
+   scrollbar-color: var(--color-border) var(--color-surface);
+}
+/* Estilo scroll Webkit */
+.sortContainer::-webkit-scrollbar { height: 5px; }
+.sortContainer::-webkit-scrollbar-track { background: var(--color-surface); }
+.sortContainer::-webkit-scrollbar-thumb { background-color: var(--color-border); border-radius: 10px; }
+
+
+.sortIcon {
+  color: var(--color-text-secondary);
+  flex-shrink: 0;     /* Evita que el icono se encoja */
+   font-size: 1.1em;   /* Tamaño icono */
+}
+
+/* Contenedor de los botones */
+.optionsWrapper {
+ display: inline-flex; /* Para permitir scroll horizontal */
+ gap: 0.6rem;        /* Espacio entre botones */
+}
+
+/* Estilo de cada botón de opción */
+.sortButton {
+display: inline-flex; align-items: center; gap: 0.5rem;
+padding: 0.45rem 0.9rem;  /* Padding ajustado */
+border: 1px solid transparent; /* Sin borde por defecto */
+background-color: transparent;
+border-radius: 15px;      /* Forma de píldora */
+cursor: pointer;
+color: var(--color-text-secondary); /* Color secundario por defecto */
+transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.1s ease;
+font-weight: 500;
+ white-space: nowrap;      /* Evita salto de línea */
+ font-size: 0.9rem;        /* Tamaño texto */
+}
+/* Iconos dentro de botones */
+.sortButton svg {
+  font-size: 0.9em;
+  margin-bottom: -1px; /* Ajuste vertical */
+}
+
+/* Hover en botones NO activos */
+.sortButton:not(.active):not(:disabled):hover {
+background-color: var(--color-secondary); /* Fondo azul claro */
+color: var(--color-text-primary);        /* Texto principal */
+}
+.sortButton:not(.active):not(:disabled):focus-visible {
+  border-color: var(--color-primary); /* Borde foco */
+  box-shadow: 0 0 0 2px rgba(160, 196, 255, 0.3); /* Sombra foco */
+  outline: none;
+}
+
+/* Botón activo */
+.sortButton.active {
+background-color: var(--color-primary-dark); /* Fondo azul oscuro */
+color: var(--color-surface);              /* Texto blanco */
+font-weight: 600;                        /* Negrita */
+cursor: default;                         /* Cursor normal (ya está activo) */
+}
+
+/* Deshabilitado (mismo que activo en este caso) */
+.sortButton:disabled {
+  opacity: 1; /* Sin opacidad extra, el estilo activo lo indica */
+  cursor: default;
+}
+
+/* Etiqueta de texto */
+.buttonLabel {
+ /* Visible por defecto */
+}
+@media (max-width: 600px) { /* Ocultar etiqueta en pantallas muy pequeñas */
+   /* .buttonLabel { display: none; } */
+   /* .sortButton { padding: 0.45rem 0.6rem; } */ /* Más compacto si solo icono */
+}

@@ -1,0 +1,83 @@
+/* src/pages/PageStyles.module.css */
+.authContainer {
+    max-width: 450px;
+    margin: 3rem auto; /* Margen superior/inferior */
+    padding: 2.5rem;    /* Padding interno */
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-lg); /* Sombra */
+    text-align: center;
+  }
+  
+  .authContainer h2 {
+    margin-top: 0;
+    margin-bottom: 1.8rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    font-size: 1.7rem;
+  }
+  
+  /* Error de API/Validación */
+  .errorMessage {
+    color: var(--color-error-text);
+    background-color: var(--color-error);
+    border: 1px solid var(--color-error-border);
+    padding: 0.8rem 1rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1.2rem;
+    font-size: 0.9rem;
+    text-align: left;
+    line-height: 1.4;
+  }
+  
+  /* Mensaje de Éxito (para Registro) */
+  .successMessage {
+    color: #0f5132; /* Verde oscuro */
+    background-color: #d1e7dd; /* Verde pastel */
+    border: 1px solid #badbcc;
+    padding: 1.2rem;
+    border-radius: var(--border-radius);
+    margin: 1.5rem 0;
+    text-align: center;
+    font-weight: 500;
+    line-height: 1.5;
+    font-size: 1rem;
+  }
+  .successMessage a {
+    color: #0a3622;
+    font-weight: 700;
+    text-decoration: underline;
+  }
+  
+  /* Separador */
+  .divider {
+    border: 0;
+    height: 1px;
+    background-color: var(--color-border);
+    margin: 1.8rem 0;
+  }
+  
+  /* Enlace para cambiar entre Login/Register */
+  .switchAuth {
+    margin-top: 1.8rem;
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+  }
+  .switchAuth a {
+    color: var(--color-primary-dark);
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 0.3em;
+  }
+  .switchAuth a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Texto guía opcional */
+  .textMuted {
+    color: var(--color-text-secondary);
+    font-size: 0.85rem;
+    margin-bottom: 0.8rem;
+    margin-top: -0.5rem;
+  }

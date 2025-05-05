@@ -1,0 +1,159 @@
+/* src/components/User/UserProfileHeader.module.css */
+.profileHeader {
+    /* Usa .card base, pero quitamos padding y ajustamos */
+    padding: 0;
+    margin-bottom: 1.5rem;
+    position: relative; /* Para banner y overlap */
+    overflow: visible;  /* Permite que el avatar sobresalga */
+    border-radius: var(--border-radius); /* Redondeo general */
+     background-color: var(--color-surface); /* Fondo base */
+}
+ /* Estado de Carga */
+ .loading {
+     min-height: 300px; display: flex; align-items: center; justify-content: center;
+     font-style: italic; color: var(--color-text-secondary);
+ }
+
+
+/* Banner Opcional */
+.bannerPlaceholder {
+    height: 150px; /* Altura del banner */
+    background-color: var(--color-secondary);
+    background-size: cover; background-position: center;
+    border-radius: var(--border-radius) var(--border-radius) 0 0; /* Redondeo superior */
+     /* border-bottom: 1px solid var(--color-border); */
+     margin-bottom: -60px; /* Empuja contenido hacia arriba (mitad avatar) */
+}
+
+/* Contenido Principal (Avatar + Info/Acciones) */
+.headerContent {
+    display: flex;
+    flex-direction: column; /* Avatar arriba, info abajo por defecto */
+    align-items: center;   /* Centrar avatar por defecto */
+    padding: 0 1.5rem 1.5rem 1.5rem; /* Padding (sin arriba por banner) */
+     position: relative; /* Para que esté sobre el banner si se usa margin negativo */
+     z-index: 1;
+}
+ @media (min-width: 768px) { /* Lado a lado en escritorio */
+    .headerContent {
+       flex-direction: row;     /* Avatar izquierda, info derecha */
+       align-items: flex-end; /* Alinear bases del avatar e info */
+       gap: 1.5rem;            /* Espacio entre avatar e info */
+       padding: 1.5rem;        /* Padding completo en escritorio */
+        margin-top: -70px; /* Ajusta overlap si el avatar es más grande */
+    }
+}
+
+/* Contenedor del Avatar */
+.avatarSection {
+   flex-shrink: 0; /* Evita que el avatar se encoja */
+   margin-bottom: 1rem; /* Espacio debajo en móvil */
+   position: relative; /* Para cualquier pseudo-elemento o badge */
+   z-index: 2; /* Avatar sobre cualquier fondo del banner */
+}
+ @media (min-width: 768px) {
+    .avatarSection { margin-bottom: 0; }
+ }
+
+
+/* Avatar Grande */
+.avatarLarge {
+    width: 130px;   /* Tamaño grande */
+    height: 130px;
+    font-size: 4rem; /* Tamaño inicial grande */
+    border: 5px solid var(--color-surface); /* Borde blanco */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sombra */
+    /* Hereda .avatar-placeholder base */
+     position: relative; /* Para que z-index funcione */
+     background-color: var(--color-primary); /* Fallback */
+}
+
+/* Contenedor Info y Acciones */
+.infoAndActions {
+   flex-grow: 1;        /* Ocupa espacio restante */
+   width: 100%;        /* Ocupa ancho en móvil */
+   min-width: 0;        /* Previene overflow */
+   display: flex;
+   flex-direction: column; /* Apila contenido interno */
+   align-items: center;   /* Centra contenido en móvil */
+   text-align: center;
+   /* background-color: var(--color-surface); */ /* Fondo opcional si no hereda de card */
+   /* padding: 1rem; */ /* Padding opcional */
+   /* border-radius: var(--border-radius); */
+}
+@media (min-width: 768px) {
+    .infoAndActions {
+       align-items: flex-start; /* Alinea a la izquierda */
+       text-align: left;
+    }
+}
+
+/* Fila Nombre y Botones */
+.nameActionsRow {
+    display: flex;
+    flex-direction: column; /* Nombre arriba, botón abajo en móvil */
+    align-items: center;   /* Centrado */
+    gap: 0.8rem;           /* Espacio */
+    margin-bottom: 1rem;   /* Espacio antes de la bio */
+    width: 100%;           /* Ocupa ancho */
+}
+@media (min-width: 768px) {
+    .nameActionsRow {
+       flex-direction: row;   /* Lado a lado */
+       justify-content: space-between; /* Nombre izquierda, botón derecha */
+       align-items: center;
+       margin-bottom: 0.8rem; /* Menos espacio antes de bio */
+    }
+}
+
+/* Nombre de Usuario */
+.username {
+    font-size: clamp(1.6rem, 5vw, 2rem); /* Responsivo */
+    font-weight: 700;
+    margin: 0; line-height: 1.2;
+    color: var(--color-text-primary);
+    word-break: break-all; /* Evita que nombres largos rompan layout */
+}
+
+/* Contenedor de botones de acción (Editar/Amigo) */
+.actions { flex-shrink: 0; }
+
+/* Biografía */
+.bio {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    max-width: 650px;    /* Limita ancho */
+     margin-left: auto; margin-right: auto; /* Centra en móvil */
+     white-space: pre-wrap; /* Respeta saltos de línea si hay */
+}
+ @media (min-width: 768px) {
+    .bio { margin-left: 0; margin-right: 0; } /* Alinear izquierda */
+ }
+
+/* Estadísticas */
+.stats {
+    display: flex;
+    flex-wrap: wrap;         /* Permite ajuste */
+    justify-content: center; /* Centrado en móvil */
+    gap: 0.75rem 1.5rem;     /* Espaciado */
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    width: 100%;             /* Ocupa ancho para justificar */
+    padding-top: 1rem;      /* Espacio antes de stats */
+    border-top: 1px solid var(--color-secondary); /* Separador */
+}
+@media (min-width: 768px) {
+    .stats { justify-content: flex-start; } /* Alinear izquierda */
+}
+
+.statItem {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-weight: 500;
+    white-space: nowrap;     /* No partir un stat */
+}
+ .statItem svg {
+    color: var(--color-primary-dark); /* Color icono */
+     font-size: 0.95em;
+ }

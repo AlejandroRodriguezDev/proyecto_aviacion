@@ -1,0 +1,44 @@
+/* src/pages/NotFoundPage.module.css */
+.notFoundContainer {
+    display: flex;
+    flex-direction: column;   /* Apilar elementos */
+    align-items: center;      /* Centrar horizontalmente */
+    justify-content: center;  /* Centrar verticalmente */
+    min-height: calc(100vh - var(--navbar-height, 65px) - 4rem); /* Ocupa espacio vertical disponible */
+    text-align: center;       /* Centrar texto */
+    padding: 2rem;
+    color: var(--color-text-secondary); /* Color de texto secundario */
+  }
+  
+  .icon {
+      font-size: 6rem;      /* Icono grande */
+      color: var(--color-primary); /* Color azul */
+      margin-bottom: 1.5rem;
+      opacity: 0.8;
+  }
+  
+  .title {
+    font-size: clamp(1.8rem, 6vw, 2.8rem); /* Título responsivo */
+    font-weight: 700;
+    color: var(--color-text-primary); /* Color principal */
+    margin-bottom: 1rem;
+  }
+  
+  .message {
+    font-size: 1.1rem;      /* Tamaño del mensaje */
+    max-width: 550px;       /* Ancho máximo */
+    margin-left: auto; margin-right: auto; /* Centrar texto */
+    margin-bottom: 2.5rem;   /* Espacio antes de botones */
+    line-height: 1.6;
+  }
+  
+  /* Contenedor de botones */
+  .actionsContainer {
+     display: flex;
+     flex-wrap: wrap;         /* Permite ajustar botones */
+     justify-content: center;  /* Centra botones */
+     gap: 1rem;              /* Espacio entre botones */
+  }
+  
+  /* Los botones usan el estilo base de Button.js */
+  /* No necesitan estilo extra a menos que quieras personalizarlos aquí */

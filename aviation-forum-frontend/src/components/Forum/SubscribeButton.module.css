@@ -2,18 +2,41 @@
 .subButton {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    min-width: 110px; /* Ensure minimum width */
-    justify-content: center; /* Center content */
+    gap: 0.4em;         /* Espacio icono/texto relativo a fuente */
+    min-width: 115px;     /* Ancho mínimo para que no salte mucho */
+    justify-content: center;
+     font-weight: 600;    /* Más peso para este botón */
+     /* Hereda padding, border, etc. de Button */
 }
 
-/* Hide text on very small layouts if needed */
-/* @media (max-width: 400px) {
+/* Ajusta el icono dentro del botón */
+.subButton svg {
+    font-size: 1.1em;   /* Icono ligeramente más grande que texto */
+    flex-shrink: 0; /* No se encoje */
+}
+
+/* Estilo específico cuando está suscrito (variante secundaria) */
+.subButton[aria-pressed="true"], /* Alternativa a depender de la clase si variant cambia */
+.subButton:where([variant="secondary"]) { /* O basándose en la variante */
+   /* Quizá un borde más sutil */
+   /* border-color: var(--color-primary); */
+}
+ /* Efecto hover para el estado suscrito */
+.subButton[aria-pressed="true"]:hover:not(:disabled),
+.subButton:where([variant="secondary"]):hover:not(:disabled) {
+   background-color: #f0f5ff; /* Fondo azul muy muy pálido */
+    /* border-color: var(--color-primary-dark); */
+    /* color: var(--color-primary-dark); */
+}
+
+
+/* Ocultar texto en pantallas pequeñas */
+@media (max-width: 450px) {
     .buttonText {
-         display: none;
+        /* display: none; */ /* Podrías ocultarlo si quieres botones solo icono */
     }
      .subButton {
-         min-width: auto;
-         padding: 0.4rem;
+        min-width: auto; /* Ancho automático */
+         /* padding: 0.5rem; */ /* Padding cuadrado si solo es icono */
      }
-} */
+}

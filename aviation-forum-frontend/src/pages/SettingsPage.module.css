@@ -1,0 +1,73 @@
+/* src/pages/SettingsPage.module.css */
+.settingsContainer {
+    max-width: 900px;        /* Ancho máximo */
+    margin: 1rem auto;         /* Centrado y margen vertical */
+    padding: 1rem;            /* Padding interno */
+  }
+  
+  .pageTitle {
+      font-size: 1.8rem;        /* Título grande */
+      font-weight: 700;
+      margin: 0 0 0.5rem 0;
+      color: var(--color-text-primary);
+      border-bottom: 1px solid var(--color-border); /* Separador */
+      padding-bottom: 0.8rem;
+  }
+  .welcomeMessage {
+      font-size: 1rem;
+      color: var(--color-text-secondary);
+      margin: 0 0 2rem 0;    /* Espacio debajo del saludo */
+  }
+  
+  /* Grid para las secciones */
+  .settingsGrid {
+      display: grid;
+       /* Una columna por defecto, 2 en pantallas medianas+ */
+      grid-template-columns: 1fr;
+      gap: 1.5rem;              /* Espacio entre secciones */
+  }
+   @media (min-width: 768px) {
+      .settingsGrid { grid-template-columns: 1fr 1fr; } /* Dos columnas */
+   }
+  
+  /* Estilo de cada sección */
+  .settingsSection {
+      /* Usa .card como base (padding, background, border, shadow...) */
+      display: flex;
+      flex-direction: column;   /* Apila título, párrafo, acciones */
+       min-height: 200px;      /* Altura mínima para consistencia */
+  }
+  
+  .sectionTitle {
+      display: flex; align-items: center; gap: 0.7rem;
+      font-size: 1.3rem; font-weight: 600;
+      color: var(--color-primary-dark); /* Color primario oscuro para títulos */
+      margin: 0 0 1rem 0;        /* Margen inferior */
+       padding-bottom: 0.5rem;
+       /* border-bottom: 1px solid var(--color-secondary); Opcional */
+  }
+   .sectionTitle svg { font-size: 1.1em; }
+  
+  .settingsSection p {
+      font-size: 0.95rem; color: var(--color-text-secondary);
+      margin: 0 0 1.5rem 0;  /* Margen inferior antes de acciones */
+      line-height: 1.6;
+       flex-grow: 1;           /* Empuja acciones al fondo */
+  }
+  
+  /* Contenedor para botones placeholder */
+  .placeholderActions {
+      display: flex; flex-direction: column; gap: 0.8rem;
+      margin-top: auto;       /* Empuja al fondo si flex-grow está en p */
+      padding-top: 1rem;      /* Espacio si hay borde */
+      border-top: 1px solid var(--color-secondary); /* Separador antes de botones */
+  }
+   /* Los botones usan su estilo por defecto, ya deshabilitados en el JSX */
+  
+  
+   /* Mensaje si no está logueado */
+   .notLoggedIn {
+       text-align: center; font-size: 1.1rem; color: var(--color-text-secondary);
+       margin-top: 3rem; padding: 2rem; background-color: var(--color-secondary);
+       border-radius: var(--border-radius); border: 1px dashed var(--color-border);
+   }

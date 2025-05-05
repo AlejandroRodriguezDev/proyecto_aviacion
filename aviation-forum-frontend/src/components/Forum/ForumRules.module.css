@@ -1,57 +1,87 @@
 /* src/components/Forum/ForumRules.module.css */
 .rulesCard {
-    /* Uses .card base styles */
-     padding: 1rem; /* Adjust padding if needed */
-  }
-  
-  .rulesTitle {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--color-text-primary);
-    margin-bottom: 1rem;
-    border-bottom: 1px solid var(--color-secondary);
-    padding-bottom: 0.5rem;
-  }
-   .rulesTitle svg {
-      color: var(--color-primary-dark);
-   }
-  
-  .rulesList {
-    list-style: none; /* Remove default list style */
-    padding-left: 0;
-    margin: 0;
-  }
-  
-  .ruleItem {
-    font-size: 0.9rem;
-    color: var(--color-text-secondary);
-    padding: 0.5rem 0 0.5rem 1.5rem; /* Indent text */
-    position: relative;
-    line-height: 1.5;
-    border-bottom: 1px dashed var(--color-secondary); /* Dashed separator */
-  }
-   .ruleItem:last-child {
-      border-bottom: none; /* No border for last item */
-   }
-  
-  /* Add custom numbering */
-  .ruleItem::before {
-    content: counter(list-item) "."; /* Use CSS counter */
-    counter-increment: list-item;
-    position: absolute;
-    left: 0;
-    top: 0.5rem; /* Align with text */
-    font-weight: 600;
-    color: var(--color-primary); /* Number color */
-    width: 1.2rem; /* Space for number */
-    text-align: right;
-    padding-right: 0.3rem;
-  }
-  
-  /* Reset counter for each list */
-  .rulesList {
-      counter-reset: list-item;
-  }
+  /* Hereda .card base */
+   padding: 1rem 1.25rem;         /* Padding interno */
+   background-color: #fdfdff;   /* Fondo ligeramente distinto */
+   border-color: var(--color-secondary); /* Borde más suave */
+   margin-bottom: 1.5rem; /* Espacio debajo */
+}
+
+.rulesTitle {
+display: flex;
+align-items: center;
+gap: 0.6rem;                /* Espacio icono/texto */
+font-size: 1.15rem;         /* Tamaño título */
+font-weight: 600;
+color: var(--color-text-primary);
+margin: 0 0 1rem 0;         /* Margen inferior */
+padding-bottom: 0.5rem;       /* Espacio antes del borde */
+border-bottom: 1px solid var(--color-secondary); /* Borde ligero */
+}
+.rulesTitle svg {
+  color: var(--color-primary-dark); /* Color del icono */
+  flex-shrink: 0;
+   font-size: 1em; /* Ajuste tamaño icono */
+}
+
+/* Lista Ordenada */
+.rulesList {
+list-style: none;           /* Sin estilo de lista por defecto */
+padding-left: 0;            /* Sin padding izquierdo */
+margin: 0;
+counter-reset: rule-counter; /* Inicializa contador CSS */
+}
+
+.ruleItem {
+font-size: 0.9rem;
+color: var(--color-text-secondary); /* Texto secundario para reglas */
+padding: 0.5rem 0 0.5rem 2rem;  /* Padding (izq para número) */
+position: relative;             /* Para posicionar número */
+line-height: 1.5;
+border-bottom: 1px dashed var(--color-border); /* Separador */
+}
+.ruleItem:last-child {
+  border-bottom: none;         /* Sin borde en el último */
+}
+
+/* Número Personalizado */
+.ruleItem::before {
+content: counter(rule-counter);   /* Muestra el contador */
+counter-increment: rule-counter;  /* Incrementa contador */
+position: absolute;             /* Posición absoluta */
+left: 0;
+top: 0.5rem;                    /* Alineación vertical */
+font-weight: 700;               /* Número en negrita */
+color: var(--color-primary);      /* Color del número */
+background-color: var(--color-secondary); /* Fondo círculo */
+width: 1.5rem;                  /* Ancho círculo */
+height: 1.5rem;                 /* Alto círculo */
+line-height: 1.5rem;            /* Centra número verticalmente */
+text-align: center;             /* Centra número horizontalmente */
+border-radius: 50%;             /* Círculo */
+font-size: 0.8em;               /* Tamaño número */
+}
+
+/* Mensaje si no hay reglas */
+.noRules {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  padding: 0.5rem 0;
+   text-align: center;
+}
+
+/* Enlace de Reporte */
+.reportLink {
+  margin-top: 1rem;
+  text-align: right; /* Alinear a la derecha */
+  font-size: 0.8rem;
+}
+.reportLink a {
+  color: var(--color-text-secondary); /* Color sutil */
+  text-decoration: underline;
+  font-style: italic;
+}
+.reportLink a:hover {
+  color: var(--color-primary-dark);
+}

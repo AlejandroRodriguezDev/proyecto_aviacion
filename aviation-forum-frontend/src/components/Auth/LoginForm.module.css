@@ -1,19 +1,28 @@
 /* src/components/Auth/LoginForm.module.css */
 .form {
-    width: 100%;
-  }
-  
-  .formError {
-    color: #dc3545;
-    background-color: var(--color-error); /* Pastel red background */
-    border: 1px solid #efa2a9;
-    padding: 0.75rem 1rem;
-    border-radius: var(--border-radius);
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
-  }
-  
-  .submitButton {
-    width: 100%; /* Make button full width */
-    margin-top: 0.5rem; /* Add some space above button */
-  }
+  width: 100%; /* Ocupa el ancho del contenedor padre */
+  display: flex;
+  flex-direction: column; /* Apila los elementos */
+  gap: 0.5rem; /* Espacio pequeño entre campos */
+}
+
+/* Mensaje de Error (unificado para form y API) */
+.formError {
+color: var(--color-error-text);
+background-color: var(--color-error);
+border: 1px solid var(--color-error-border);
+padding: 0.75rem 1rem;
+border-radius: var(--border-radius);
+margin-bottom: 1rem; /* Espacio debajo del error */
+font-size: 0.9rem;
+text-align: left; /* Alineación del texto del error */
+}
+
+/* Botón de Submit */
+.submitButton {
+width: 100%;       /* Botón ocupa todo el ancho */
+margin-top: 1rem;  /* Espacio encima del botón */
+}
+
+/* No son necesarios estilos para InputField aquí,
+ ya que usa los estilos de src/components/Common/InputField.module.css */

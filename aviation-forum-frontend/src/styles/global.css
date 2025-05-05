@@ -1,68 +1,164 @@
+/* src/styles/global.css */
 :root {
-    --color-primary: #a0c4ff;
-    --color-secondary: #e6f0ff;
-    --color-background: #f8f9fa;
-    --color-text-primary: #333;
-    --color-text-secondary: #555;
-    --color-border: #dee2e6;
-    --color-accent: #ffb3ba;
-    --color-like: #9bf6ff;
-    --color-dislike: #ffadad;
-    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  body {
-    margin: 0;
-    font-family: var(--font-family);
-    background-color: var(--color-background);
-    color: var(--color-text-primary);
-    line-height: 1.6;
-  }
-  
-  a {
-    color: var(--color-primary);
-    text-decoration: none;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-  
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .card {
-    background-color: #fff;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    margin-bottom: 15px;
-    padding: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  }
-  
-  .img-placeholder {
-    background-color: var(--color-secondary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-text-secondary);
-    font-size: 0.8em;
-    text-align: center;
-    border-radius: 4px;
-  }
-  
-  .avatar-placeholder {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: var(--color-primary);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-  }
-  
+  /* Paleta Pastel Azul/Blanco/Negro (Ajusta según tu gusto) */
+  --color-primary: #a0c4ff;        /* Azul pastel principal */
+  --color-primary-dark: #6a9ff3;   /* Azul un poco más oscuro para hover/activo */
+  --color-secondary: #e6f0ff;     /* Azul muy pálido para fondos secundarios */
+  --color-surface: #ffffff;       /* Blanco para superficies principales (cards) */
+  --color-background: #f8faff;    /* Blanco ligeramente azulado para el fondo general */
+  --color-text-primary: #212529;  /* Negro suave para texto principal */
+  --color-text-secondary: #6c757d; /* Gris para texto secundario/metadatos */
+  --color-border: #dee2e6;        /* Gris claro para bordes */
+  --color-accent: #ffb3ba;        /* Rosa pastel (Opcional, no usado mucho aquí) */
+
+  /* Colores para Votos (Pastel) */
+  --color-like: #9bf6ff;          /* Cyan pastel para Like */
+  --color-dislike: #ffadad;       /* Rojo pastel para Dislike */
+  --color-like-active: #00a8e8;   /* Azul más vibrante para Like activo */
+  --color-dislike-active: #e63946;/* Rojo más vibrante para Dislike activo */
+
+  /* Color de Error (Pastel) */
+  --color-error: #f8d7da;         /* Fondo rojo pastel */
+  --color-error-border: #f5c6cb;  /* Borde rojo pastel */
+  --color-error-text: #721c24;    /* Texto rojo oscuro */
+
+  /* Fuente y Bordes */
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --border-radius: 6px;           /* Bordes redondeados sutiles */
+  --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --box-shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  /* Tamaños/Layout */
+  --navbar-height: 65px; /* Ajusta a la altura real de tu navbar */
+}
+
+body {
+margin: 0;
+font-family: var(--font-family);
+background-color: var(--color-background);
+color: var(--color-text-primary);
+line-height: 1.6;
+font-size: 16px; /* Base font size */
+ -webkit-font-smoothing: antialiased; /* Mejor renderizado de fuentes */
+ -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+color: var(--color-primary-dark); /* Usar el azul más oscuro para enlaces */
+text-decoration: none;
+transition: color 0.2s ease;
+}
+
+a:hover {
+color: var(--color-primary);
+text-decoration: underline;
+}
+
+.container {
+max-width: 1200px;
+margin-left: auto;
+margin-right: auto;
+padding-left: 15px;  /* Padding horizontal estándar */
+padding-right: 15px;
+width: 100%; /* Asegura que ocupa el ancho en móvil */
+box-sizing: border-box; /* Incluye padding en el ancho */
+}
+
+/* Contenedor principal con padding debajo de navbar */
+.main-content-area {
+  padding-top: calc(var(--navbar-height) + 1rem); /* Espacio debajo de la navbar */
+  padding-bottom: 2rem; /* Espacio en el fondo */
+}
+
+/* Estilo base para cards */
+.card {
+background-color: var(--color-surface);
+border: 1px solid var(--color-border);
+border-radius: var(--border-radius);
+margin-bottom: 1rem; /* Espacio estándar debajo de las cards */
+padding: 1.25rem; /* Padding estándar */
+box-shadow: var(--box-shadow);
+}
+
+/* Estilo base para cards más ligeras (usado en listas de perfil) */
+.card-lite {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-secondary); /* Borde más sutil */
+  border-radius: var(--border-radius);
+  margin-bottom: 0.75rem;
+  padding: 0.75rem 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.1s ease;
+}
+.card-lite:hover {
+  border-color: var(--color-border);
+  box-shadow: var(--box-shadow); /* Sombra sutil al hacer hover */
+}
+
+
+/* Placeholders */
+.img-placeholder {
+background-color: var(--color-secondary);
+display: flex;
+align-items: center;
+justify-content: center;
+color: var(--color-text-secondary);
+font-size: 0.9em; /* Slightly larger placeholder text */
+text-align: center;
+border-radius: 4px; /* Ligeramente redondeado */
+min-height: 50px; /* Altura mínima */
+width: 100%;
+ border: 1px dashed var(--color-border);
+ overflow: hidden; /* Ensure content doesn't spill */
+}
+.img-placeholder span { /* Style inner span if used */
+ padding: 0.5rem;
+}
+
+.avatar-placeholder {
+width: 50px; /* Tamaño base avatar */
+height: 50px;
+border-radius: 50%;
+background-color: var(--color-primary); /* Color de fondo si no hay imagen */
+color: white;
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: bold;
+font-size: 1.2rem; /* Tamaño letra inicial */
+overflow: hidden; /* Asegura que la imagen no se salga */
+flex-shrink: 0; /* Evita que se encoja en flexbox */
+border: 2px solid var(--color-surface); /* Small border */
+}
+.avatar-placeholder img,
+.avatar-placeholder span { /* Style both potential children */
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Cubre el espacio sin distorsionar */
+  display: flex; /* For centering text */
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%; /* Needed for span background too */
+}
+
+/* Visually Hidden Utility */
+.visually-hidden {
+position: absolute !important;
+height: 1px; width: 1px;
+overflow: hidden;
+clip: rect(1px, 1px, 1px, 1px);
+ white-space: nowrap;
+ border: 0; /* Added */
+ margin: -1px; /* Added */
+ padding: 0; /* Added */
+}
+
+/* Utilidades de texto */
+.text-danger { color: var(--color-dislike-active); }
+.text-success { color: #198754; } /* Verde éxito */
+.text-muted { color: var(--color-text-secondary); }
+.text-center { text-align: center; }
+
+/* Asegurar box-sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+}

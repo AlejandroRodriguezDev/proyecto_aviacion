@@ -1,0 +1,168 @@
+/* src/pages/UserProfilePage.module.css */
+.profileContainer {
+    /* Espacio opcional alrededor de la página */
+    /* margin: 1rem 0; */
+    position: relative; /* Para posicionar el botón volver */
+ }
+ 
+  /* Botón Volver */
+  .backButton {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+       z-index: 5; /* Encima de posible banner */
+      background-color: rgba(255, 255, 255, 0.7); /* Fondo semi-transparente */
+      backdrop-filter: blur(3px); /* Efecto blur */
+  }
+   @media (max-width: 767px) { /* Ajuste posición en móvil */
+     .backButton { top: 0.5rem; left: 0.5rem; padding: 0.3rem 0.6rem;}
+  }
+ 
+ 
+ /* Mensaje de Error */
+ .errorMessage {
+     color: var(--color-error-text); background-color: var(--color-error);
+     border: 1px solid var(--color-error-border); padding: 1.25rem;
+     border-radius: var(--border-radius); text-align: center; margin: 2rem auto;
+     max-width: 600px; font-weight: 500;
+ }
+ 
+ 
+ /* Navegación por Tabs */
+ .profileTabs {
+     display: flex;
+     border-bottom: 1px solid var(--color-border);
+     margin-bottom: 1.5rem;  /* Espacio debajo de las tabs */
+      /* Permitir scroll horizontal si no caben */
+      overflow-x: auto;
+      scrollbar-width: thin; /* Firefox */
+      scrollbar-color: var(--color-border) transparent;
+      background-color: var(--color-surface); /* Fondo para las tabs */
+      border-radius: var(--border-radius) var(--border-radius) 0 0; /* Redondeo superior */
+      position: sticky; /* Hacer tabs pegajosas debajo de la navbar */
+      top: var(--navbar-height, 65px); /* Posición pegajosa */
+      z-index: 10; /* Por encima del contenido scrolleable */
+ }
+ .profileTabs::-webkit-scrollbar { height: 4px; }
+ .profileTabs::-webkit-scrollbar-track { background: transparent; }
+ .profileTabs::-webkit-scrollbar-thumb { background-color: var(--color-border); border-radius: 10px; }
+ 
+ /* Botón de Tab */
+ .tabButton {
+     padding: 0.9rem 1.5rem; /* Padding generoso */
+     cursor: pointer;
+     background: none;
+     border: none;
+     border-bottom: 3px solid transparent; /* Borde inferior para estado activo */
+     font-size: 0.95rem;
+     font-weight: 500;
+     color: var(--color-text-secondary); /* Color secundario por defecto */
+     transition: color 0.2s ease, border-color 0.2s ease;
+     display: inline-flex;   /* Alinear icono y texto */
+     align-items: center;
+     gap: 0.6rem;            /* Espacio icono/texto */
+     white-space: nowrap;    /* Evita salto de línea */
+     margin-bottom: -1px;    /* Solapar borde inferior del contenedor */
+     flex-shrink: 0;       /* No encoger botones */
+ }
+ .tabButton svg { font-size: 1.1em; } /* Iconos un poco más grandes */
+ .tabButton:hover { color: var(--color-text-primary); } /* Color primario al hover */
+ .tabButton:focus-visible {
+     outline: 2px solid var(--color-primary);
+     outline-offset: -2px;
+      background-color: var(--color-secondary);
+ }
+ 
+ /* Botón de Tab Activo */
+ .tabButton.active {
+     color: var(--color-primary-dark); /* Color primario oscuro */
+     border-bottom-color: var(--color-primary-dark); /* Línea inferior azul */
+     font-weight: 600;         /* Negrita */
+ }
+ 
+ 
+ /* Contenedor del Contenido de la Tab */
+ .tabContent {
+     padding-top: 0.5rem; /* Pequeño espacio arriba del contenido */
+     /* Estilos generales para el área de contenido */
+ }
+ 
+ /* Grid para Amigos */
+ .friendsGrid {
+     display: grid;
+      /* Columnas adaptables: mínimo 300px, máximo 1 fracción del espacio */
+     grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+     gap: 1rem;
+ }
+ 
+ /* Lista para Posts, Comentarios, Foros */
+ .postsList, .commentsList, .forumsList {
+     display: flex;
+     flex-direction: column;
+     gap: 0.75rem; /* Espacio entre items */
+ }
+ 
+ /* Estilo de Item Individual en las listas */
+ .contentItem {
+     /* Usa card-lite como base (ver global.css) */
+     /* padding: 0.75rem 1rem; ... etc ... */
+     /* Añadimos estilos específicos si es necesario */
+     display: flex;
+     flex-direction: column; /* Apila título y meta */
+     gap: 0.2rem; /* Espacio pequeño entre título y meta */
+ }
+ 
+ /* Título del Item (Link) */
+ .itemTitleLink {
+     font-weight: 600;
+     color: var(--color-text-primary);
+     text-decoration: none;
+     font-size: 1rem;
+     line-height: 1.4;
+     transition: color 0.2s ease;
+ }
+ .itemTitleLink:hover { color: var(--color-primary-dark); text-decoration: underline; }
+ 
+ /* Meta Info (Foro, Fecha, Votos...) */
+ .itemMeta {
+     font-size: 0.8rem;
+     color: var(--color-text-secondary);
+     display: flex; /* Para alinear posibles elementos internos */
+     flex-wrap: wrap; /* Permite ajuste */
+     gap: 0.3rem 0.8rem; /* Espacio vertical y horizontal */
+ }
+  .itemMeta a { color: var(--color-primary-dark); font-weight: 500; }
+  .itemMeta a:hover { text-decoration: underline; }
+  .netVotes { margin-left: auto; font-weight: 600; } /* Votos a la derecha */
+ 
+ 
+ /* Snippet de Comentario */
+ .commentSnippet {
+     font-style: italic;
+     color: var(--color-text-primary);
+     margin: 0 0 0.5rem 0;
+     padding: 0.5rem 1rem; /* Padding interno */
+     border-left: 3px solid var(--color-secondary); /* Borde izquierdo */
+     background-color: #fafbff; /* Fondo muy ligero */
+     border-radius: 0 4px 4px 0;
+     /* Truncar snippet si es largo */
+     /* display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; */
+     /* overflow: hidden; text-overflow: ellipsis; */
+ }
+ 
+  /* Snippet de descripción de foro (opcional) */
+  .forumDescSnippet {
+     font-size: 0.85rem; margin-top: 0.3rem; color: var(--color-text-secondary);
+      /* Truncar si es largo */
+      /* display: -webkit-box; -webkit-line-clamp: 1; ... etc ... */
+  }
+ 
+ 
+ /* Mensaje si no hay contenido en una tab */
+ .noContentMessage {
+     color: var(--color-text-secondary); font-style: italic;
+     text-align: center; padding: 2rem;
+     background-color: var(--color-secondary); /* Fondo ligero */
+     border-radius: var(--border-radius); margin-top: 1rem;
+     border: 1px dashed var(--color-border);
+ }

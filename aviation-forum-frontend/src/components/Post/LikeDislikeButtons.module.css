@@ -1,52 +1,92 @@
 /* src/components/Post/LikeDislikeButtons.module.css */
 .voteContainer {
-    display: flex;
-    align-items: center;
-    gap: 0.3rem; /* Smaller gap for vote buttons */
-  }
-  
-  .voteButton {
-    background: none;
-    border: none;
-    padding: 0.3rem 0.5rem; /* Smaller padding */
-    cursor: pointer;
-    border-radius: 4px;
-    color: var(--color-text-secondary);
-    transition: background-color 0.2s ease, color 0.2s ease;
-    display: flex; /* Align icon properly */
-    align-items: center;
-  }
-  .voteButton:disabled {
-      cursor: not-allowed;
-      opacity: 0.6;
-  }
-  
-  .voteButton:hover:not(:disabled) {
-    background-color: var(--color-secondary);
-  }
-  
-  .likeButton:hover:not(:disabled) {
-    color: var(--color-like); /* Cyan on hover */
-  }
-  .dislikeButton:hover:not(:disabled) {
-     color: var(--color-dislike); /* Red on hover */
-  }
-  
-  
-  .likeButton.active {
-    color: #007bff; /* Stronger blue when active */
-    background-color: rgba(155, 246, 255, 0.2); /* Faint like color background */
-  }
-  
-  .dislikeButton.active {
-     color: #dc3545; /* Stronger red when active */
-     background-color: rgba(255, 173, 173, 0.2); /* Faint dislike color background */
-  }
-  
-  .voteCount {
-    font-weight: 600;
-    font-size: 0.9em;
-    min-width: 20px; /* Ensure space for count */
-    text-align: center;
-    color: var(--color-text-primary);
-  }
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;           /* Espacio reducido entre botones y contador */
+}
+
+.voteButton {
+background: none;        /* Sin fondo por defecto */
+border: none;            /* Sin borde por defecto */
+padding: 0.4rem 0.6rem;  /* Padding ajustado */
+cursor: pointer;
+border-radius: var(--border-radius); /* Bordes redondeados */
+color: var(--color-text-secondary); /* Color gris por defecto */
+transition: background-color 0.2s ease, color 0.2s ease;
+display: inline-flex;    /* Para alinear icono */
+align-items: center;
+ line-height: 1;          /* Ajuste vertical */
+ position: relative;      /* Para el spinner interno */
+ min-width: 32px; /* Ancho mínimo para acomodar spinner */
+ min-height: 30px; /* Altura mínima */
+}
+.voteButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+.voteButton:not(:disabled):hover {
+  background-color: var(--color-secondary); /* Fondo azul muy claro al hover */
+}
+
+/* Botón Like */
+.likeButton:not(:disabled):hover {
+  color: var(--color-like-active);       /* Color azul activo al hover */
+}
+.likeButton.active {
+  color: var(--color-like-active);       /* Color azul activo */
+  background-color: rgba(0, 168, 232, 0.1); /* Fondo azul muy transparente */
+}
+
+/* Botón Dislike */
+.dislikeButton:not(:disabled):hover {
+  color: var(--color-dislike-active);    /* Color rojo activo al hover */
+}
+.dislikeButton.active {
+  color: var(--color-dislike-active);    /* Color rojo activo */
+  background-color: rgba(230, 57, 70, 0.1); /* Fondo rojo muy transparente */
+}
+
+
+/* Contador */
+.voteCount {
+font-weight: 700;           /* Contador en negrita */
+font-size: 0.95em;         /* Ligeramente más pequeño */
+min-width: 30px;           /* Espacio mínimo para números */
+text-align: center;
+color: var(--color-text-primary); /* Color principal */
+padding: 0 0.3rem;        /* Padding horizontal */
+transition: color 0.2s ease; /* Transición de color */
+position: relative;
+line-height: 1;
+}
+/* Colores para puntuación */
+.positive { color: var(--color-like-active); }
+.negative { color: var(--color-dislike-active); }
+
+/* Spinner dentro de botones */
+.voteButton.loading > svg { /* Oculta icono si el botón carga */
+  visibility: hidden;
+}
+.miniSpinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.9em; /* Tamaño spinner relativo a fuente botón */
+  height: 0.9em;
+  margin-top: -0.45em; /* Mitad altura */
+  margin-left: -0.45em; /* Mitad ancho */
+  border: 2px solid currentColor; /* Color heredado (like/dislike activo o secundario) */
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: like-spin 0.8s linear infinite;
+}
+/* Adaptar color del spinner para botón secundario o no activo */
+.voteButton:not(.active) .miniSpinner {
+   border-color: var(--color-primary-dark); /* Azul si no está activo */
+    border-top-color: transparent;
+}
+
+
+@keyframes like-spin {
+to { transform: rotate(360deg); }
+}

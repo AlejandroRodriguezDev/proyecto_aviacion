@@ -1,132 +1,116 @@
 // src/contexts/AuthContext.js
-import React, { createContext, useState, useEffect, useCallback } from 'react';
-import { api } from '../services/api'; // Import the simulated API
+import React, { createContext, useState, useEffect, useCallback, useMemo } from 'react';
+import { api } from '../services/api'; // Importa TU api.js simulado
+// Ya NO importamos LoadingSpinner aquí, se usa en App.js/ProtectedRoute
 
-const AuthContext = createContext(null);
+const AuthContext = createContext(null); // Crea el Context
 
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // User object or null
-  const [loading, setLoading] = useState(true); // Initial auth check
+export const AuthProvider = ({ children }) => { // EXPORTA el Provider
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Function to check if user is logged in (e.g., on app load)
   const checkAuthState = useCallback(async () => {
-    setLoading(true);
-    try {
-      const storedToken = localStorage.getItem('authToken');
-      if (storedToken) {
-        const userData = await api.verifyToken(storedToken); // Verify token with API
-        setUser(userData);
-      } else {
-        setUser(null);
+    const storedToken = localStorage.getItem('authToken');
+    if (storedToken && api.verifyToken) {
+      try {
+        const userData = await api.verifyToken(storedToken);
+        const normalizedUser = { // Normaliza datos
+          ...userData,
+          friends: Array.isArray(userData.friends) ? userData.friends : [],
+          subscribedForums: Array.isArray(userData.subscribedForums) ? userData.subscribedForums : [],
+        };
+        if (JSON.stringify(user) !== JSON.stringify(normalizedUser)) {
+           setUser(normalizedUser);
+        }
+      } catch (error) {
+        if (user !== null) setUser(null);
+        localStorage.removeItem('authToken');
       }
-    } catch (error) {
-      console.error("Auth check failed:", error);
-      setUser(null);
-      localStorage.removeItem('authToken'); // Clean up invalid token
-    } finally {
-      setLoading(false);
+    } else {
+      if (user !== null) setUser(null);
     }
-  }, []);
+    if (loading) setLoading(false); // Solo cambia loading en el check inicial
 
+  }, [user, loading]); // Dependencia 'loading' para controlar cuándo setearlo a false
+
+  // Efecto inicial
   useEffect(() => {
-    checkAuthState();
-  }, [checkAuthState]); // Run check on mount
+     console.log("AuthProvider mounted. Running initial auth check.");
+     setLoading(true); // Marca cargando al inicio
+     checkAuthState(); // Ejecuta el chequeo
+     // setLoading(false) se maneja dentro de checkAuthState la primera vez
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Se ejecuta solo al montar
 
-  const login = async (email, password) => {
+
+  const login = async (email, password) => { /* ... (código sin cambios) ... */
+    if (!api.login) throw new Error("Login function not found in API");
     try {
       const { user: userData, token } = await api.login(email, password);
       localStorage.setItem('authToken', token);
-      setUser(userData);
-      return userData; // Return user data on success
+      const normalizedUser = { /* ... (normalización) ... */
+        ...userData,
+        friends: Array.isArray(userData.friends) ? userData.friends : [],
+        subscribedForums: Array.isArray(userData.subscribedForums) ? userData.subscribedForums : [],
+      };
+      setUser(normalizedUser);
+      return normalizedUser;
     } catch (error) {
       console.error("Login API call failed:", error);
-      throw error; // Re-throw error to be handled by the calling component
+      throw error;
     }
   };
 
-  const register = async (userData) => {
-     try {
-        await api.register(userData);
-        // Optionally auto-login after registration or just return success
-        // For now, just registration, user needs to login separately
-        return { success: true };
-     } catch (error) {
-         console.error("Register API call failed:", error);
-         throw error;
-     }
+  const register = async (userData) => { /* ... (código sin cambios) ... */
+    if (!api.register) throw new Error("Register function not found in API");
+    try {
+      const result = await api.register(userData);
+      console.log("Registration successful for:", result.user?.username || 'unknown');
+      return { success: true, user: result.user };
+    } catch (error) {
+       console.error("Register API call failed:", error);
+       throw error;
+    }
   };
 
-  const logout = () => {
-    console.log("Logging out");
+  const logout = useCallback(() => { /* ... (código sin cambios) ... */
+    console.log("Logging out user...");
     localStorage.removeItem('authToken');
     setUser(null);
-    // No API call needed for simple token removal, but could call an invalidate endpoint
-  };
+  }, []);
 
-  // --- Placeholder OAuth Functions ---
-  const loginWithGoogle = async () => {
-      setLoading(true); // Simulate loading
-      await new Promise(res => setTimeout(res, 1500)); // Simulate API call / SDK interaction
-      console.warn("TODO: Implement real Google Login using SDK");
-      // Simulate successful login with a mock Google user
-      const mockGoogleUser = { id: 'googleUser123', username: 'GooglePilot', email: 'google@example.com', avatarUrl: null, /* other fields */ };
-      const mockToken = `mockToken-${mockGoogleUser.id}`; // Simulate a token
-      mockUsers[mockGoogleUser.id] = mockGoogleUser; // Add to mock users for consistency
-      localStorage.setItem('authToken', mockToken);
-      setUser(mockGoogleUser);
-      setLoading(false);
-      // Real implementation would involve Google SDK callbacks
-      alert("Simulated Google Login Successful!");
-      return mockGoogleUser;
-  };
+  const loginWithOAuth = useCallback(async (provider) => { /* ... (código sin cambios) ... */
+    console.warn(`TODO: Implement real ${provider} Login`);
+    alert(`Simulated ${provider} Login! Needs backend integration.`);
+    const mockOAuthUser = { id: `${provider}User${Date.now()}`, username: `${provider}Flyer`, email: `${provider.toLowerCase()}@example.com`, friends: [], subscribedForums: [] };
+    const mockToken = `mockToken-${mockOAuthUser.id}`;
+    localStorage.setItem('authToken', mockToken);
+    setUser(mockOAuthUser);
+    return mockOAuthUser;
+  }, []);
+  const loginWithGoogle = useCallback(() => loginWithOAuth('Google'), [loginWithOAuth]);
+  const loginWithFacebook = useCallback(() => loginWithOAuth('Facebook'), [loginWithOAuth]);
 
-  const loginWithFacebook = async () => {
-      setLoading(true);
-      await new Promise(res => setTimeout(res, 1500));
-      console.warn("TODO: Implement real Facebook Login using SDK");
-      // Simulate successful login with a mock Facebook user
-      const mockFbUser = { id: 'fbUser456', username: 'FacebookFlyer', email: 'fb@example.com', avatarUrl: null, /* other fields */ };
-      const mockToken = `mockToken-${mockFbUser.id}`;
-      mockUsers[mockFbUser.id] = mockFbUser;
-      localStorage.setItem('authToken', mockToken);
-      setUser(mockFbUser);
-      setLoading(false);
-      alert("Simulated Facebook Login Successful!");
-      return mockFbUser;
-  };
-  // --- End Placeholder OAuth ---
+  const isModerator = useCallback((forumId) => { /* ... (código sin cambios) ... */
+    if (!user || !forumId || !api.mockForums) return false;
+     const forum = api.mockForums[forumId];
+     return !!forum && forum.creator === user.id;
+  }, [user]);
 
-
-  // Check if user is moderator of a specific forum (example helper)
-  const isModerator = (forumId) => {
-      if (!user || !forumId) return false;
-      // Using the simplified logic where creator = moderator
-      const forum = Object.values(mockForums).find(f => f.id === forumId);
-      return forum?.creator === user.id;
-      // // OR if using isModeratorOf field:
-      // return user.isModeratorOf?.includes(forumId) ?? false;
-  };
-
-  const value = {
-    user,
-    isAuthenticated: !!user,
-    loading,
-    login,
-    register,
-    logout,
-    loginWithGoogle,
-    loginWithFacebook,
-    checkAuthState, // Expose if needed elsewhere
-    isModerator,    // Expose moderator check
-  };
+  const value = useMemo(() => ({ /* ... (código sin cambios) ... */
+    user, isAuthenticated: !!user, loading, login, register, logout,
+    loginWithGoogle, loginWithFacebook, checkAuthState, isModerator,
+  }), [user, loading, logout, loginWithGoogle, loginWithFacebook, checkAuthState, isModerator]);
 
   return (
     <AuthContext.Provider value={value}>
       {children}
-      {/* Show global loading overlay during OAuth simulation */}
-      {loading && !user && <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(255,255,255,0.7)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 9999 }}> <LoadingSpinner /> </div> }
     </AuthContext.Provider>
   );
 };
 
+// Exporta el Context por defecto para poder usar useContext(AuthContext) si se necesita
 export default AuthContext;
+
+// NO exportamos useAuth desde aquí
+// // export const useAuth = () => useContext(AuthContext); // INCORRECTO
