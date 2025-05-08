@@ -1,4 +1,3 @@
-// src/components/Common/Navbar.js
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
@@ -23,24 +22,18 @@ const Navbar = () => {
         try {
           const fetchedNotifs = await api.getNotifications(user.id);
           if (isMounted) {
-              setNotifications(fetchedNotifs || []);
-              setUnreadCount((fetchedNotifs || []).filter(n => !n.read).length);
+            setNotifications(fetchedNotifs || []);
+            setUnreadCount((fetchedNotifs || []).filter(n => !n.read).length);
           }
         } catch (error) {
-          console.error("Failed to fetch mock notifications:", error);
-          if (isMounted) {
-            setNotifications([]);
-            setUnreadCount(0);
-          }
+          if (isMounted) console.error("Failed to fetch mock notifications:", error);
         }
       } else if (isMounted) {
-          setNotifications([]);
-          setUnreadCount(0);
+        setNotifications([]);
+        setUnreadCount(0);
       }
     };
-
     fetchNotifications();
-
     return () => { isMounted = false; };
   }, [isAuthenticated, user]);
 
@@ -61,23 +54,44 @@ const Navbar = () => {
     }
   };
 
-  const handleMarkAsRead = async (notificationId) => {
-       console.log("Marking notification as read (simulated):", notificationId);
-       setNotifications(prev => prev.map(n => n.id === notificationId ? {...n, read: true} : n));
-       setUnreadCount(prev => Math.max(0, prev - 1));
+   const handleMarkAsRead = async (notificationId) => {
+    console.log("Marking notification as read (simulated):", notificationId);
+    const originalNotifications = [...notifications];
+    const originalCount = unreadCount;
+
+    setNotifications(prev => prev.map(n => n.id === notificationId ? {...n, read: true} : n));
+    setUnreadCount(prev => {
+        const notif = originalNotifications.find(n => n.id === notificationId);
+        return notif && !notif.read ? Math.max(0, prev - 1) : prev;
+    });
+
+    try {
+         if(api.markNotificationRead){ await api.markNotificationRead(user.id, notificationId); }
+    } catch(error){
+         console.error("Failed to mark notification as read (simulated):", error);
+         setNotifications(originalNotifications);
+         setUnreadCount(originalCount);
+         alert("No se pudo marcar la notificación como leída.");
+    }
    };
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {};
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [showNotifications]);
+   useEffect(() => {
+     const handleClickOutside = (event) => {
+       // if (showNotifications && !event.target.closest(`.${styles.notificationsWrapper}`)) {
+       //   setShowNotifications(false);
+       // }
+     };
+     if (showNotifications) {
+         document.addEventListener('mousedown', handleClickOutside);
+     }
+     return () => document.removeEventListener('mousedown', handleClickOutside);
+   }, [showNotifications]);
 
   return (
     <nav className={styles.navbar}>
       <div className={`${styles.navContainer} container`}>
         <Link to={isAuthenticated ? "/home" : "/login"} className={styles.logo}>
-          <FaPlaneDeparture />
+          <FaPlaneDeparture aria-hidden="true"/>
           <span className={styles.logoText}>AeroForum</span>
         </Link>
 
@@ -90,65 +104,44 @@ const Navbar = () => {
         <div className={styles.navMenu}>
           {isAuthenticated && user ? (
             <div className={styles.userMenu}>
-              <Button
-                  onClick={() => navigate('/messages')}
-                  variant="secondary"
-                  size="small"
-                  title="Mensajes Directos"
-                  className={styles.iconButton}
-                  aria-label="Mensajes Directos"
-              >
-                <FaEnvelope />
-              </Button>
+               <Button onClick={() => navigate('/messages')} variant="secondary" size="small" title="Mensajes Directos" className={styles.iconButton} aria-label="Mensajes Directos">
+                 <FaEnvelope />
+               </Button>
 
-              <div className={styles.notificationsWrapper}>
-                  <Button
-                      onClick={() => setShowNotifications(prev => !prev)}
-                      variant="secondary"
-                      size="small"
-                      title="Notificaciones"
-                      className={`${styles.iconButton} ${unreadCount > 0 ? styles.hasUnread : ''}`}
-                      aria-label={`Notificaciones (${unreadCount} no leídas)`}
-                      aria-haspopup="true"
-                      aria-expanded={showNotifications}
-                  >
+               <div className={styles.notificationsWrapper}>
+                   <Button onClick={() => setShowNotifications(prev => !prev)} variant="secondary" size="small" title="Notificaciones" className={`${styles.iconButton} ${unreadCount > 0 ? styles.hasUnread : ''}`} aria-label={`Notificaciones (${unreadCount} no leídas)`} aria-haspopup="true" aria-expanded={showNotifications}>
                        <FaBell />
                        {unreadCount > 0 && <span className={styles.badge}>{unreadCount > 9 ? '9+' : unreadCount}</span>}
-                  </Button>
-                  {showNotifications && (
-                       <NotificationDropdown
-                           notifications={notifications}
-                           onClose={() => setShowNotifications(false)}
-                           onMarkRead={handleMarkAsRead}
-                           isLoading={false}
-                       />
-                  )}
-              </div>
+                   </Button>
+                   {showNotifications && (
+                       <NotificationDropdown notifications={notifications} onClose={() => setShowNotifications(false)} onMarkRead={handleMarkAsRead} />
+                   )}
+               </div>
 
-              <Link to={`/user/${user.username}`} className={styles.userLink} title={user.username}>
-                <div className={`${styles.avatarPlaceholder} avatar-placeholder`}>
-                  {user.avatarUrl ? <img src={user.avatarUrl} alt={user.username} /> : user.username.charAt(0).toUpperCase()}
-                </div>
-                <span className={styles.username}>{user.username}</span>
-              </Link>
+               <Link to={`/user/${user.username}`} className={styles.userLink} title={user.username}>
+                   <div className={`${styles.avatarPlaceholder} avatar-placeholder`}>
+                       {user.avatarUrl ? <img src={user.avatarUrl} alt="" /> : user.username.charAt(0).toUpperCase()}
+                   </div>
+                   <span className={styles.username}>{user.username}</span>
+               </Link>
 
-              <Button onClick={() => navigate('/settings')} variant="secondary" size="small" title="Configuración" className={styles.iconButton}>
+               <Button onClick={() => navigate('/settings')} variant="secondary" size="small" title="Configuración" className={styles.iconButton} aria-label="Configuración">
                  <FaCog />
-              </Button>
+               </Button>
 
-              <Button onClick={handleLogout} variant="secondary" size="small" title="Cerrar Sesión" className={styles.iconButton}>
-                <FaSignOutAlt />
-              </Button>
+               <Button onClick={handleLogout} variant="secondary" size="small" title="Cerrar Sesión" className={styles.iconButton} aria-label="Cerrar sesión">
+                 <FaSignOutAlt />
+               </Button>
             </div>
           ) : (
-             <div className={styles.authButtons}>
-                 <Button onClick={() => navigate('/login')} variant="secondary" size="small">
-                     <FaSignInAlt /> Iniciar Sesión
-                 </Button>
-                 <Button onClick={() => navigate('/register')} variant="primary" size="small">
-                     <FaUserPlus /> Registrarse
-                 </Button>
-             </div>
+            <div className={styles.authButtons}>
+               <Button onClick={() => navigate('/login')} variant="secondary" size="small">
+                 <FaSignInAlt /> Iniciar Sesión
+               </Button>
+               <Button onClick={() => navigate('/register')} variant="primary" size="small">
+                 <FaUserPlus /> Registrarse
+               </Button>
+            </div>
           )}
         </div>
       </div>
