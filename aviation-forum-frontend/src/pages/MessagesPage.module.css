@@ -1,0 +1,64 @@
+/* src/pages/MessagesPage.module.css */
+.messagesLayout {
+    display: flex;
+    height: calc(100vh - var(--navbar-height, 65px) - 2rem); /* Ocupa altura restante */
+    overflow: hidden; /* Evita scroll principal */
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    margin-top: 1rem; /* Espacio arriba */
+  }
+  
+  .conversationList {
+    width: 300px; /* Ancho lista */
+    border-right: 1px solid var(--color-border);
+    padding: 1rem;
+    overflow-y: auto; /* Scroll si lista es larga */
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+  }
+  .conversationList h3 {
+     margin: 0 0 1rem 0; font-size: 1.1rem;
+  }
+   /* Estilos básicos placeholder */
+   .conversationList ul { list-style: none; padding: 0; flex-grow: 1;}
+   .conversationList li { padding: 0.5rem 0; border-bottom: 1px solid var(--color-secondary); cursor: pointer;}
+   .conversationList li:hover { background-color: var(--color-secondary); }
+   .conversationList button { margin-top: 1rem;}
+  
+  
+  .messageWindow {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column; /* Contenido arriba, input abajo */
+    padding: 1rem;
+  }
+  .messageWindow h3 { margin: 0 0 1rem 0; font-size: 1.1rem; border-bottom: 1px solid var(--color-secondary); padding-bottom: 0.5rem;}
+  
+  .messagesArea {
+     flex-grow: 1;
+     overflow-y: auto; /* Scroll mensajes */
+     margin-bottom: 1rem;
+     border: 1px solid var(--color-border);
+     padding: 0.5rem;
+     min-height: 200px;
+  }
+  /* Estilo básico msg placeholder */
+   .messagesArea p { margin: 0.5rem 0; padding: 0.3rem 0.6rem; background-color: #f0f0f0; border-radius: 5px; max-width: 70%;}
+  
+  
+   .messageWindow textarea { display: block; width: 100%; min-height: 50px; margin-bottom: 0.5rem;}
+  
+  .noConversation {
+    text-align: center;
+    color: var(--color-text-secondary);
+    margin: auto; /* Centrar vertical y horizontalmente */
+    font-size: 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    .messagesLayout { flex-direction: column; height: auto; }
+    .conversationList { width: 100%; height: 250px; border-right: none; border-bottom: 1px solid var(--color-border);}
+    .messageWindow { height: calc(100vh - var(--navbar-height, 65px) - 250px - 2rem);} /* Ajustar altura */
+  }

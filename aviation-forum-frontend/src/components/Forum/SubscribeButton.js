@@ -1,87 +1,68 @@
-// src/components/Forum/SubscribeButton.js
 import React, { useState, useEffect, useCallback } from 'react';
 import Button from '../Common/Button';
 import styles from './SubscribeButton.module.css';
-import { FaCheckCircle, FaPlusCircle, FaSignInAlt } from 'react-icons/fa'; // Íconos
+import { FaCheckCircle, FaPlusCircle, FaSignInAlt } from 'react-icons/fa';
 import { useAuth } from '../../hooks/useAuth';
-import { api } from '../../services/api'; // Tu API simulada
+import { api } from '../../services/api';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const SubscribeButton = ({ forumId, isInitiallySubscribed, onSubscriptionChange }) => {
-  const { user, isAuthenticated, checkAuthState } = useAuth(); // Añade checkAuthState para refrescar
-  // Estado local para reflejar el estado de suscripción actual
+  const { user, isAuthenticated, checkAuthState } = useAuth();
   const [isSubscribed, setIsSubscribed] = useState(isInitiallySubscribed);
-  // Estado de carga específico para este botón
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation(); // Para guardar la ruta al redirigir a login
+  const location = useLocation();
 
-  // Actualiza el estado local si la prop inicial cambia (útil si los datos del foro se recargan)
   useEffect(() => {
     setIsSubscribed(isInitiallySubscribed);
   }, [isInitiallySubscribed]);
 
-  // Función para manejar el click, usando useCallback para optimizar
   const handleClick = useCallback(async (e) => {
-    e.preventDefault(); // Evita acciones por defecto (ej: si está dentro de un Link)
-    e.stopPropagation(); // Evita que el evento se propague a elementos padre
+    e.preventDefault();
+    e.stopPropagation();
 
-    // Si no está autenticado, redirige a login guardando la ruta actual
     if (!isAuthenticated) {
       navigate('/login', { state: { from: location.pathname } });
       return;
     }
 
-    // Validaciones: no hacer nada si ya está cargando, falta usuario o forumId
     if (isLoading || !user || !forumId || !api.subscribeToForum || !api.unsubscribeFromForum) {
         console.warn("Subscribe action prevented:", { isLoading, user, forumId });
         return;
     }
 
-    setIsLoading(true); // Empieza a cargar
-    const wasSubscribed = isSubscribed; // Guarda estado anterior para posible rollback
-    const targetState = !wasSubscribed; // Estado al que queremos llegar
-    const action = targetState ? api.subscribeToForum : api.unsubscribeFromForum; // Función API a llamar
+    setIsLoading(true);
+    const wasSubscribed = isSubscribed;
+    const targetState = !wasSubscribed;
+    const action = targetState ? api.subscribeToForum : api.unsubscribeFromForum;
 
     try {
-      // --- Actualización Optimista de UI ---
-      setIsSubscribed(targetState); // Cambia el estado local inmediatamente
+      setIsSubscribed(targetState);
       if (onSubscriptionChange) {
-        onSubscriptionChange(targetState); // Notifica al componente padre del cambio
+        onSubscriptionChange(targetState);
       }
 
-      // --- Llamada a la API ---
-      await action(user.id, forumId); // Tu API necesita userId
-
-      // --- Opcional: Refrescar datos del usuario globalmente ---
-       // Si la suscripción afecta algo en el objeto 'user' global (lista subscribedForums),
-       // podríamos querer refrescar ese contexto para consistencia en toda la app.
-       // if (checkAuthState) { await checkAuthState(); }
-
+      await action(user.id, forumId);
     } catch (error) {
       console.error("Subscription toggle failed:", error);
-      // --- Rollback de UI en caso de error ---
-      setIsSubscribed(wasSubscribed); // Vuelve al estado anterior
+      setIsSubscribed(wasSubscribed);
       if (onSubscriptionChange) {
-        onSubscriptionChange(wasSubscribed); // Notifica al padre del rollback
+        onSubscriptionChange(wasSubscribed);
       }
-      // Muestra mensaje de error al usuario
       alert(`Error al ${targetState ? 'suscribirse' : 'desuscribirse'}: ${error.message || 'Inténtalo de nuevo.'}`);
     } finally {
-      setIsLoading(false); // Termina la carga (éxito o error)
+      setIsLoading(false);
     }
   }, [
       isAuthenticated, isLoading, user, forumId, isSubscribed,
       onSubscriptionChange, navigate, location.pathname, checkAuthState
-  ]); // Dependencias de useCallback
+  ]);
 
-
-  // Si no está autenticado, muestra un botón diferente que redirige a login
   if (!isAuthenticated) {
      return (
         <Button
-          onClick={handleClick} // Al clickear, el callback redirigirá a login
-          variant="primary"    // Quizá primario para incitar al login? O secundario
+          onClick={handleClick}
+          variant="primary"
           size="small"
           className={styles.subButton}
           title="Inicia sesión para suscribirte"
@@ -93,8 +74,7 @@ const SubscribeButton = ({ forumId, isInitiallySubscribed, onSubscriptionChange 
      );
   }
 
-  // --- Renderizado del botón normal (suscrito o no) ---
-  const variant = isSubscribed ? 'secondary' : 'primary'; // Estilo diferente si ya suscrito
+  const variant = isSubscribed ? 'secondary' : 'primary';
   const Icon = isSubscribed ? FaCheckCircle : FaPlusCircle;
   const text = isSubscribed ? 'Suscrito' : 'Suscribirse';
   const title = isSubscribed ? 'Dejar de seguir este foro' : 'Seguir este foro';
@@ -103,8 +83,8 @@ const SubscribeButton = ({ forumId, isInitiallySubscribed, onSubscriptionChange 
   return (
     <Button
       onClick={handleClick}
-      isLoading={isLoading}     // Pasa estado de carga
-      disabled={isLoading}    // Deshabilita si está cargando
+      isLoading={isLoading}
+      disabled={isLoading}
       variant={variant}
       size="small"
       className={styles.subButton}

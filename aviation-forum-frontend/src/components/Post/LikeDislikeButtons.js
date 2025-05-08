@@ -1,70 +1,53 @@
-// src/components/Post/LikeDislikeButtons.js
+// src/components/Post/LikeDislikeButtons.js (SIN CAMBIOS)
 import React from 'react';
 import styles from './LikeDislikeButtons.module.css';
 import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
-import Button from '../Common/Button'; // Podríamos usar Button si queremos consistencia total
+// import Button from '../Common/Button'; // No lo usamos directamente aquí
 
 const LikeDislikeButtons = ({
   likes = 0,
   dislikes = 0,
-  // Callbacks que serán llamados por el componente padre (PostCard, CommentCard)
   onLike,
   onDislike,
-  userVote = null,   // Estado actual del voto del usuario: 'like', 'dislike', o null
-  disabled = false,  // Si los botones deben estar deshabilitados (ej: no logueado)
-  isLoading = false, // Si la acción de votar está en progreso
+  userVote = null,
+  disabled = false,
+  isLoading = false,
 }) => {
-  const netScore = likes - dislikes; // Calcula puntuación neta
-
-  // Determina si los botones deben deshabilitarse
+  const netScore = likes - dislikes;
   const isDisabled = disabled || isLoading;
 
-  // Manejadores de click que llaman a las props onLike/onDislike
   const handleLikeClick = (e) => {
-    e.preventDefault();
-    e.stopPropagation(); // Evita activar otros clicks (ej: Link del PostCard)
-    if (!isDisabled && typeof onLike === 'function') {
-      onLike(); // El padre se encarga de llamar a la API
-    }
+    e.preventDefault(); e.stopPropagation();
+    if (!isDisabled && typeof onLike === 'function') onLike();
   };
 
   const handleDislikeClick = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!isDisabled && typeof onDislike === 'function') {
-      onDislike(); // El padre llama a la API
-    }
+    e.preventDefault(); e.stopPropagation();
+    if (!isDisabled && typeof onDislike === 'function') onDislike();
   };
 
   return (
     <div className={styles.voteContainer} role="group" aria-label="Controles de votación">
-      {/* Botón Like */}
       <button
         type="button"
         onClick={handleLikeClick}
-         // Aplica clase 'active' si el voto es 'like'
         className={`${styles.voteButton} ${styles.likeButton} ${userVote === 'like' ? styles.active : ''} ${isLoading && userVote !== 'dislike' ? styles.loading : ''}`}
         disabled={isDisabled}
-        aria-pressed={userVote === 'like'} // Accesibilidad: indica si está presionado
-        aria-label={`Like (${likes.toLocaleString()})`} // Texto descriptivo
-        title={`Like (${likes.toLocaleString()})`}    // Tooltip
+        aria-pressed={userVote === 'like'}
+        aria-label={`Like (${likes.toLocaleString()})`}
+        title={`Like (${likes.toLocaleString()})`}
       >
-        {/* Mostrar spinner sólo si estamos cargando ESTE voto */}
         {isLoading && userVote !== 'dislike' ? <span className={styles.miniSpinner}></span> : <FaArrowUp aria-hidden="true"/>}
       </button>
 
-      {/* Contador de Votos */}
       <span
-         // Clases para colorear según puntuación
         className={`${styles.voteCount} ${netScore > 0 ? styles.positive : ''} ${netScore < 0 ? styles.negative : ''}`}
-        title={`Puntuación: ${netScore.toLocaleString()}`} // Tooltip
-        aria-live="polite" // Anuncia cambios en lectores de pantalla
+        title={`Puntuación: ${netScore.toLocaleString()}`}
+        aria-live="polite"
       >
-         {/* No mostrar spinner aquí, botones individuales lo indican */}
-         {netScore.toLocaleString()}
+        {isLoading ? <span className={styles.miniSpinner}></span> : netScore.toLocaleString()}
       </span>
 
-      {/* Botón Dislike */}
       <button
         type="button"
         onClick={handleDislikeClick}

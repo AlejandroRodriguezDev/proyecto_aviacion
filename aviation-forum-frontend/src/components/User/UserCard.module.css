@@ -1,81 +1,75 @@
-/* src/components/User/UserCard.module.css */
 .userCard {
-    /* Usa base card-lite (definida en global.css o aquí) */
-    /* Si no está en global: */
-    /* background-color: var(--color-surface); */
-    /* border: 1px solid var(--color-secondary); */
-    /* border-radius: var(--border-radius); */
-    /* padding: 0.75rem 1rem; */
-    /* margin-bottom: 0.75rem; */
-     display: flex;
-     align-items: center; /* Alinear verticalmente */
-     gap: 0.8rem;       /* Espacio entre elementos */
-     transition: border-color 0.2s ease, box-shadow 0.1s ease;
-  }
-  .userCard:hover {
-     border-color: var(--color-border);
-     box-shadow: var(--box-shadow);
-  }
-  
-  .loading { /* Estilo para placeholder de carga */
-     min-height: 70px;
-     justify-content: center; font-style: italic;
-     color: var(--color-text-secondary);
-  }
-  
-  /* Link que envuelve avatar e info */
-  .profileLink {
-     flex-grow: 1; /* Ocupa espacio disponible */
-     display: flex;
-     align-items: center;
-     gap: 0.8rem;       /* Espacio avatar/info */
-     text-decoration: none;
-     color: inherit;     /* Hereda color texto */
-     min-width: 0; /* Evita overflow del texto */
-  }
-  
-  /* Avatar dentro de la tarjeta */
-  .avatarPlaceholder {
-    width: 42px;          /* Tamaño avatar */
-    height: 42px;
-    font-size: 1.1rem;    /* Tamaño inicial */
-    flex-shrink: 0;     /* No se encoge */
-     border-width: 2px;    /* Borde más sutil */
-     /* Hereda estilos de .avatar-placeholder */
-  }
-  
-  /* Contenedor de Info (Username y Bio) */
-  .userInfo {
-     display: flex;
-     flex-direction: column; /* Username arriba, Bio abajo */
-     min-width: 0; /* Clave para text-overflow */
-  }
-  
-  .username {
-    margin: 0 0 0.15rem 0; /* Margen inferior pequeño */
-    font-size: 0.95rem;     /* Tamaño username */
-    font-weight: 600;
-    color: var(--color-text-primary);
-    overflow: hidden; text-overflow: ellipsis; white-space: nowrap; /* Truncar nombre largo */
-    transition: color 0.2s ease; /* Transición para hover */
-  }
-  .profileLink:hover .username {
-     color: var(--color-primary-dark); /* Resalta nombre al hover */
-  }
-  
-  /* Bio (snippet) */
-  .bio {
-    font-size: 0.8rem; /* Más pequeño */
-    color: var(--color-text-secondary);
-    margin: 0;
-     /* Mostrar 1 línea máx con ellipsis */
-    display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;
-    overflow: hidden; text-overflow: ellipsis;
-    line-height: 1.4;   /* Interlineado */
-  }
-  
-  /* Contenedor del botón de acción (amigo) */
-  .actionContainer {
-     margin-left: auto;      /* Empuja a la derecha */
-     flex-shrink: 0;         /* No se encoge */
-  }
+   display: flex;
+   align-items: center;
+   gap: 0.8rem;
+   transition: border-color 0.2s ease, box-shadow 0.1s ease;
+ }
+ 
+ .userCard:hover {
+   border-color: var(--color-border);
+   box-shadow: var(--box-shadow);
+ }
+ 
+ .loading {
+   min-height: 70px;
+   justify-content: center;
+   font-style: italic;
+   color: var(--color-text-secondary);
+ }
+ 
+ .profileLink {
+   flex-grow: 1;
+   display: flex;
+   align-items: center;
+   gap: 0.8rem;
+   text-decoration: none;
+   color: inherit;
+   min-width: 0;
+ }
+ 
+ .avatarPlaceholder {
+   width: 42px;
+   height: 42px;
+   font-size: 1.1rem;
+   flex-shrink: 0;
+   border-width: 2px;
+ }
+ 
+ .userInfo {
+   display: flex;
+   flex-direction: column;
+   min-width: 0;
+ }
+ 
+ .username {
+   margin: 0 0 0.15rem 0;
+   font-size: 0.95rem;
+   font-weight: 600;
+   color: var(--color-text-primary);
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   transition: color 0.2s ease;
+ }
+ 
+ .profileLink:hover .username {
+   color: var(--color-primary-dark);
+ }
+ 
+ .bio {
+   font-size: 0.8rem;
+   color: var(--color-text-secondary);
+   margin: 0;
+   display: -webkit-box;
+   -webkit-line-clamp: 1;
+   -webkit-box-orient: vertical;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   line-height: 1.4;
+ }
+ 
+ .actionContainer {
+   margin-left: auto;
+   flex-shrink: 0;
+ }
+ 

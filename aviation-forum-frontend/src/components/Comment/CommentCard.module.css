@@ -1,109 +1,178 @@
-/* src/components/Comment/CommentCard.module.css */
 .commentCard {
-    padding: 0.8rem 1rem;   /* Padding interno */
-    border: 1px solid var(--color-secondary);
-    border-radius: var(--border-radius);
-    margin-bottom: 1rem;
-    background-color: var(--color-surface);
-    transition: border-color 0.2s ease;
-    position: relative;       /* Contexto de posición */
-    /* Indentación basada en variable CSS --nested-level */
-     margin-left: calc(var(--nested-level, 0) * 25px);
-     border-left: calc(var(--nested-level, 0) * 0px + 3px) solid transparent; /* Borde izquierdo inicial transparente */
-     /* background-color: hsl(214, 100%, calc(100% - var(--nested-level, 0) * 2%)); Fondo más oscuro al anidar */
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--color-secondary);
+  border-radius: var(--border-radius);
+  margin-bottom: 1rem;
+  background-color: var(--color-surface);
+  transition: border-color 0.2s ease;
+  position: relative;
+  margin-left: calc(var(--nested-level, 0) * 25px);
+  border-left: calc(var(--nested-level, 0) * 0px + 3px) solid transparent;
+}
+
+.commentCard:not([style*='--nested-level: 0']) {
+  border-left-color: var(--color-primary);
+  background-color: #fafdff;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.commentCard:hover {
+  border-color: var(--color-border);
+}
+
+.loadingPlaceholder {
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+.commentHeader {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.6rem;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.6rem;
+}
+
+.userLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.userLink:hover {
+  color: var(--color-primary-dark);
+  text-decoration: underline;
+}
+
+.avatarPlaceholder {
+  width: 26px;
+  height: 26px;
+  font-size: 0.85rem;
+}
+
+.separator {
+  color: var(--color-border);
+  padding: 0 0.1rem;
+  font-size: 0.9em;
+}
+
+.commentTime {
+  white-space: nowrap;
+  margin-left: auto;
+}
+
+@media (max-width: 450px) {
+  .commentTime {
+      margin-left: 0;
+      flex-basis: 100%;
+      margin-top: 0.2rem;
   }
-   /* Estilo anidado */
-   .commentCard:not([style*='--nested-level: 0']) { /* Si nestedLevel NO es 0 */
-       border-left-color: var(--color-primary); /* Mostrar borde azul */
-       background-color: #fafdff; /* Fondo ligeramente diferente */
-       border-top-left-radius: 0; /* Esquina no redondeada */
-       border-bottom-left-radius: 0;
-   }
-  
-  
-  .commentCard:hover { border-color: var(--color-border); }
-  
-   /* Placeholder de carga */
-   .loadingPlaceholder {
-      min-height: 60px; display: flex; align-items: center;
-      color: var(--color-text-secondary); font-style: italic;
-   }
-  
-  
-  /* Cabecera */
-  .commentHeader {
-    display: flex; align-items: center; flex-wrap: wrap;
-    gap: 0.4rem 0.6rem; font-size: 0.85rem;
-    color: var(--color-text-secondary); margin-bottom: 0.6rem;
+}
+
+.commentBody {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 0.8rem;
+  color: var(--color-text-primary);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.commentBody p {
+  margin: 0;
+}
+
+.commentFooter {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  margin-top: 0.5rem;
+}
+
+.actionButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.5rem;
+  font-weight: 500;
+  border-radius: 4px;
+  color: var(--color-text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s, background-color 0.2s;
+  line-height: 1;
+}
+
+.actionButton:hover:not(:disabled) {
+  color: var(--color-primary-dark);
+  background-color: var(--color-secondary);
+}
+
+.actionButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.actionButton svg {
+  font-size: 0.95em;
+}
+
+.deleteButton {
+  color: var(--color-dislike-active);
+  margin-left: auto;
+}
+
+.deleteButton:hover:not(:disabled) {
+  background-color: rgba(230, 57, 70, 0.1);
+}
+
+.deleteButton svg {
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  from {
+      transform: rotate(0deg);
   }
-  .userLink { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; font-weight: 600; color: var(--color-text-primary); }
-  .userLink:hover { color: var(--color-primary-dark); text-decoration: underline;}
-  .avatarPlaceholder { /* Avatar pequeño */
-      width: 26px; height: 26px; font-size: 0.85rem;
-      /* Hereda .avatar-placeholder */
+  to {
+      transform: rotate(360deg);
   }
-  .username { /* Nombre usuario */ }
-  .separator { color: var(--color-border); padding: 0 0.1rem; font-size: 0.9em; }
-  .commentTime { white-space: nowrap; margin-left: auto; } /* Tiempo a la derecha */
-    @media (max-width: 450px) { .commentTime { margin-left: 0; flex-basis: 100%; margin-top: 0.2rem;} }
-  
-  /* Cuerpo */
-  .commentBody {
-    font-size: 0.95rem; line-height: 1.6; margin-bottom: 0.8rem;
-    color: var(--color-text-primary);
-    word-wrap: break-word; overflow-wrap: break-word;
-  }
-  .commentBody p { margin: 0; } /* Quitar margen por defecto de párrafos */
-  
-  /* Pie */
-  .commentFooter {
-    display: flex; align-items: center; flex-wrap: wrap;
-    gap: 0.4rem 1rem; /* Espacio botones/votos */
-    font-size: 0.85rem; color: var(--color-text-secondary);
-     margin-top: 0.5rem;
-  }
-   /* Estilo base botones acción en footer */
-   .actionButton {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      padding: 0.3rem 0.5rem; font-weight: 500; border-radius: 4px;
-      color: var(--color-text-secondary); background: none; border: none; cursor: pointer;
-      transition: color 0.2s, background-color 0.2s; line-height: 1;
-   }
-    .actionButton:hover:not(:disabled) {
-        color: var(--color-primary-dark); background-color: var(--color-secondary);
-     }
-    .actionButton:disabled { cursor: not-allowed; opacity: 0.6; }
-    .actionButton svg { font-size: 0.95em; }
-  
-   /* Botón Eliminar específico */
-   .deleteButton { color: var(--color-dislike-active); margin-left: auto; } /* Empuja a la derecha */
-   .deleteButton:hover:not(:disabled) { background-color: rgba(230, 57, 70, 0.1); }
-   .deleteButton svg { vertical-align: middle; }
-  
-   /* Spinner en botón eliminar */
-    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-   .spinnerIcon { animation: spin 1s linear infinite; }
-   /* Clase global ocultar visualmente */
-   .visually-hidden { position: absolute !important; /* ...etc... */ }
-  
-  
-  /* Contenedor del Formulario de Respuesta */
-  .replyFormContainer {
-      margin-top: 1rem;      /* Espacio sobre el form */
-      padding-top: 0.75rem;   /* Espacio interno superior */
-      /* padding-left: 1.5rem; Opcional: Indentar un poco más el form */
-      border-top: 1px dashed var(--color-border); /* Separador punteado */
-  }
-  
-  /* Contenedor de las Respuestas (lista anidada) */
-  .repliesContainer {
-      margin-top: 1rem;       /* Espacio sobre las respuestas */
-      /* La indentación la maneja cada CommentCard hijo con --nested-level */
-      /* border-left: 2px solid var(--color-secondary); Podrías añadir un borde */
-      /* padding-left: 10px; Ajusta según necesidad */
-  }
-  /* Indicador carga de respuestas */
-   .repliesLoading {
-       padding: 0.5rem 0 0.5rem 1rem;
-       font-style: italic; color: var(--color-text-secondary); font-size: 0.85rem;
-   }
+}
+
+.spinnerIcon {
+  animation: spin 1s linear infinite;
+}
+
+.visually-hidden {
+  position: absolute !important;
+}
+
+.replyFormContainer {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--color-border);
+}
+
+.repliesContainer {
+  margin-top: 1rem;
+}
+
+.repliesLoading {
+  padding: 0.5rem 0 0.5rem 1rem;
+  font-style: italic;
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+}

@@ -1,42 +1,30 @@
-/* src/components/Forum/SubscribeButton.module.css */
 .subButton {
     display: inline-flex;
     align-items: center;
-    gap: 0.4em;         /* Espacio icono/texto relativo a fuente */
-    min-width: 115px;     /* Ancho mínimo para que no salte mucho */
+    gap: 0.4em;
+    min-width: 115px;
     justify-content: center;
-     font-weight: 600;    /* Más peso para este botón */
-     /* Hereda padding, border, etc. de Button */
+    font-weight: 600;
 }
 
-/* Ajusta el icono dentro del botón */
 .subButton svg {
-    font-size: 1.1em;   /* Icono ligeramente más grande que texto */
-    flex-shrink: 0; /* No se encoje */
+    font-size: 1.1em;
+    flex-shrink: 0;
 }
 
-/* Estilo específico cuando está suscrito (variante secundaria) */
-.subButton[aria-pressed="true"], /* Alternativa a depender de la clase si variant cambia */
-.subButton:where([variant="secondary"]) { /* O basándose en la variante */
-   /* Quizá un borde más sutil */
-   /* border-color: var(--color-primary); */
+.subButton[aria-pressed="true"],
+.subButton:where([variant="secondary"]) {
 }
- /* Efecto hover para el estado suscrito */
+
 .subButton[aria-pressed="true"]:hover:not(:disabled),
 .subButton:where([variant="secondary"]):hover:not(:disabled) {
-   background-color: #f0f5ff; /* Fondo azul muy muy pálido */
-    /* border-color: var(--color-primary-dark); */
-    /* color: var(--color-primary-dark); */
+   background-color: #f0f5ff;
 }
 
-
-/* Ocultar texto en pantallas pequeñas */
 @media (max-width: 450px) {
     .buttonText {
-        /* display: none; */ /* Podrías ocultarlo si quieres botones solo icono */
     }
-     .subButton {
-        min-width: auto; /* Ancho automático */
-         /* padding: 0.5rem; */ /* Padding cuadrado si solo es icono */
-     }
+    .subButton {
+        min-width: auto;
+    }
 }

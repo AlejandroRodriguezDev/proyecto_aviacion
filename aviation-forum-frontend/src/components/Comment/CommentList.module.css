@@ -1,92 +1,71 @@
-/* src/components/Comment/CommentList.module.css */
 .commentListSection {
-    margin-top: 2rem;      /* Espacio sobre la sección */
-    padding-top: 1.5rem;   /* Espacio interno superior */
-    /* id="comments" se maneja en el componente */
-  }
-  /* Estilo para resaltar al llegar con ancla */
-  .commentListSection:target {
-      scroll-margin-top: calc(var(--navbar-height, 65px) + 1rem); /* Desplazamiento debajo de navbar */
-      /* Opcional: breve resaltado */
-      /* animation: highlightTarget 1.5s ease-out; */
-  }
-   @keyframes highlightTarget {
-       0% { background-color: rgba(160, 196, 255, 0.2); } /* Azul muy claro */
-       100% { background-color: transparent; }
-   }
-  
-  /* Contenedor Título y Ordenación */
-  .titleAndSort {
-      display: flex; flex-wrap: wrap; /* Permite ajuste */
-      justify-content: space-between;  /* Título izq, Ordenación der */
-      align-items: center;           /* Alineación vertical */
-      gap: 1rem;                     /* Espacio entre elementos */
-      margin-bottom: 1.8rem;         /* Espacio antes de la lista */
-  }
-  
-  /* Título "Comentarios (X)" */
-  .sectionTitle {
-      font-size: 1.4rem;           /* Tamaño título */
-      font-weight: 600;
-      display: flex; align-items: center; gap: 0.7rem; /* Icono y texto */
-      color: var(--color-text-primary);
-      margin: 0;                   /* Sin margen extra */
-       white-space: nowrap;       /* No partir el título */
-  }
-  .sectionTitle svg {
-      color: var(--color-primary-dark); /* Color icono */
-      font-size: 1em;           /* Tamaño icono relativo */
-       margin-bottom: -1px;     /* Ajuste vertical */
-  }
-  
-  /* Opciones de Ordenación */
-  .sortOptions {
-      display: flex; align-items: center; gap: 0.5rem;
-      font-size: 0.9rem;          /* Texto "Ordenar por" (si se usa label) */
-      color: var(--color-text-secondary);
-  }
-  /* Estilo Select */
-  .sortSelect {
-      padding: 0.4rem 0.6rem; /* Padding interno */
-      border: 1px solid var(--color-border);
-      border-radius: var(--border-radius);
-      background-color: var(--color-surface); /* Fondo blanco */
-      font-size: 0.85rem;     /* Tamaño texto select */
-      cursor: pointer;
-       /* Quita flecha por defecto y añade una personalizada si quieres */
-       /* appearance: none; */
-       /* background-image: url("data:image/svg+xml,..."); */
-       /* background-repeat: no-repeat; */
-       /* background-position: right 0.5rem center; */
-       /* padding-right: 2rem; */ /* Espacio para la flecha */
-      transition: border-color 0.2s ease;
-      font-weight: 500;
-  }
-  .sortSelect:focus {
-      border-color: var(--color-primary);
-      outline: none;
-      box-shadow: 0 0 0 2px rgba(160, 196, 255, 0.3); /* Sombra foco */
-  }
-  
-  /* Contenedor de los Comentarios */
-  .commentsContainer {
-     /* Podría tener padding o márgenes si es necesario */
-      /* border-top: 1px solid var(--color-secondary); */
-      /* margin-top: 1rem; */
-  }
-  
-  /* Mensaje "Sin comentarios" */
-  .noComments {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+}
+.commentListSection:target {
+    scroll-margin-top: calc(var(--navbar-height, 65px) + 1rem);
+}
+@keyframes highlightTarget {
+    0% { background-color: rgba(160, 196, 255, 0.2); }
+    100% { background-color: transparent; }
+}
+.titleAndSort {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.8rem;
+}
+.sectionTitle {
+    font-size: 1.4rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: var(--color-text-primary);
+    margin: 0;
+    white-space: nowrap;
+}
+.sectionTitle svg {
+    color: var(--color-primary-dark);
+    font-size: 1em;
+    margin-bottom: -1px;
+}
+.sortOptions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+}
+.sortSelect {
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    background-color: var(--color-surface);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+    font-weight: 500;
+}
+.sortSelect:focus {
+    border-color: var(--color-primary);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(160, 196, 255, 0.3);
+}
+.commentsContainer {
+}
+.noComments {
     color: var(--color-text-secondary);
     font-style: italic;
     text-align: center;
-    padding: 2rem;            /* Más padding */
-    background-color: var(--color-secondary); /* Fondo azul claro */
+    padding: 2rem;
+    background-color: var(--color-secondary);
     border-radius: var(--border-radius);
     margin-top: 1rem;
-     border: 1px dashed var(--color-border); /* Borde punteado */
-     font-size: 1rem;
-  }
-  
-  /* Clase global necesaria */
-  .visually-hidden { /* ... */ }
+    border: 1px dashed var(--color-border);
+    font-size: 1rem;
+}
+.visually-hidden {
+}

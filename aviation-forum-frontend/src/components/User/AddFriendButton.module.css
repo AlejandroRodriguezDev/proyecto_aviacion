@@ -1,60 +1,41 @@
-/* src/components/User/AddFriendButton.module.css */
 .friendButton {
     display: inline-flex; align-items: center; justify-content: center;
-    gap: 0.5em;         /* Espacio relativo a fuente */
-    min-width: 100px;     /* Ancho mínimo ajustado */
-    position: relative;     /* Para iconos hover */
-    overflow: hidden;       /* Oculta iconos extra */
-     padding: 0.4rem 0.8rem !important; /* Fuerza padding pequeño */
-     font-size: 0.85rem !important; /* Fuerza fuente pequeña */
-     /* Transición suave para el texto/icono hover */
-     transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    gap: 0.5em;
+    min-width: 100px;
+    position: relative;
+    overflow: hidden;
+    padding: 0.4rem 0.8rem !important;
+    font-size: 0.85rem !important;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .friendButton svg {
-    font-size: 1.1em;     /* Iconos un poco más grandes que texto */
-     /* Ajuste vertical */
-     /* vertical-align: middle; */
+    font-size: 1.1em;
 }
 
-/* Contenedores para los iconos */
 .defaultIconWrapper,
 .removeIconWrapper {
-    display: inline-flex; /* Para que se alineen */
-    transition: opacity 0.2s ease, transform 0.2s ease; /* Animación suave */
+    display: inline-flex;
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-/* Icono de quitar oculto por defecto */
 .removeIconWrapper {
-    position: absolute; /* Lo superpone al icono por defecto */
-    left: 0.8rem; /* Ajusta posición basada en padding y gap */
-     /* top: 50%; transform: translateY(-50%); */
-     opacity: 0;
-     pointer-events: none; /* No interactuable */
-     color: var(--color-dislike-active); /* Color rojo */
-     /* Centrarlo si es necesario: display: flex; align-items: center; height: 100%; */
-}
-.hasHoverRemove:hover .removeIconWrapper {
-    opacity: 1; /* Mostrar en hover */
-    transform: scale(1.1); /* Efecto sutil */
+    position: absolute;
+    left: 0.8rem;
+    opacity: 0;
+    pointer-events: none;
+    color: var(--color-dislike-active);
 }
 
-/* Ocultar icono y texto por defecto en hover cuando se muestra el de quitar */
+.hasHoverRemove:hover .removeIconWrapper {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
 .hasHoverRemove:hover .defaultIconWrapper {
     opacity: 0;
     transform: scale(0.9);
 }
-.hasHoverRemove:hover .buttonText {
-    /* Podrías ocultar el texto 'Amigos' y mostrar 'Quitar' */
-    /* opacity: 0; */
-     /* O añadir un texto alternativo: */
-    /* content: 'Quitar'; display: inline; */
-    /* Más complejo, mejor solo cambiar icono o mantener texto */
-}
 
-/* Ocultar texto en pantallas pequeñas (opcional) */
 @media (max-width: 480px) {
-    /* .buttonText { display: none; } */
-    /* .friendButton { min-width: auto; padding: 0.5rem !important; gap: 0;} */
-    /* .removeIconWrapper { left: 0.5rem;} */ /* Ajustar si padding cambia */
 }

@@ -1,11 +1,7 @@
-// src/App.js
-import React from 'react'; // Importante tener React aquí
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
-// CORRECTO: Importa AuthProvider desde contexts
 import { AuthProvider } from './contexts/AuthContext';
-// CORRECTO: Importa useAuth desde hooks
 import { useAuth } from './hooks/useAuth';
-// Resto de imports...
 import Navbar from './components/Common/Navbar';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
@@ -15,65 +11,72 @@ import PostPage from './pages/PostPage';
 import UserProfilePage from './pages/UserProfilePage';
 import SettingsPage from './pages/SettingsPage';
 import NotFoundPage from './pages/NotFoundPage';
-// import SearchResultsPage from './pages/SearchResultsPage';
+import MessagesPage from './pages/MessagesPage';
 import LoadingSpinner from './components/Common/LoadingSpinner';
 import './styles/global.css';
 
-// --- Componente para Rutas Protegidas ---
 function ProtectedRoute({ children }) {
-  const { isAuthenticated, loading } = useAuth(); // <--- Usa el hook importado
+  const { isAuthenticated, loading } = useAuth();
   const location = useLocation();
 
-  if (loading) { // Cargando estado de autenticación
-    return <LoadingSpinner />; // Mostrar spinner mientras carga
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 'calc(100vh - var(--navbar-height, 65px))' }}>
+        <LoadingSpinner size="60px" />
+      </div>
+    );
   }
 
-  if (!isAuthenticated) { 
+  if (!isAuthenticated) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
   return children;
 }
 
-// --- Componente para Rutas de Autenticación ---
 function AuthRoute({ children }) {
-    const { isAuthenticated, loading } = useAuth(); // <--- Usa el hook importado
-    const location = useLocation();
+  const { isAuthenticated, loading } = useAuth();
+  const location = useLocation();
 
-    if (loading) { // Cargando estado de autenticación
-        return <LoadingSpinner />;
-    }
+   if (loading) {
+     return (
+       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 'calc(100vh - var(--navbar-height, 65px))' }}>
+         <LoadingSpinner size="60px" />
+       </div>
+     );
+   }
 
-    if (isAuthenticated) { // Si ya está autenticado, redirige a la página principal
-        return <Navigate to={location.state?.from || '/home'} replace />;
-    }
-
-    return children;
-}
-
-// --- Contenido Principal de la App ---
-function AppContent() {
-  // CORRECTO: Llama a useAuth al inicio del componente, no condicionalmente
-  const { loading: authLoading, isAuthenticated } = useAuth(); // Obtiene estado auth
-  const location = useLocation(); // Necesario para ocultar Navbar opcionalmente
-
-  if (authLoading) { // Loader principal mientras carga el estado de Auth inicial
-    return <LoadingSpinner />;
+  if (isAuthenticated) {
+    const from = location.state?.from?.pathname || '/home';
+    return <Navigate to={from} replace />;
   }
 
-  // Opcional: Ocultar navbar en login/register
+  return children;
+}
+
+function AppContent() {
+  const { loading: authLoading, isAuthenticated } = useAuth();
+  const location = useLocation();
+
+  if (authLoading && location.pathname === '/') {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <LoadingSpinner size="80px" />
+      </div>
+     );
+  }
+
   const showNavbar = location.pathname !== '/login' && location.pathname !== '/register';
 
   return (
     <>
-      {showNavbar && <Navbar />} {/* Muestra Navbar condicionalmente */}
-      {/* Usa la variable CSS para el padding top */}
-      <main className="main-content-area container" style={{ paddingTop: showNavbar ? undefined : '1rem' }}>
+      {showNavbar && <Navbar />}
+      <main
+        className="main-content-area container"
+        style={{ paddingTop: showNavbar ? undefined : '1rem' }}
+      >
         <Routes>
-          {/* Ruta Raíz: Usa isAuthenticated obtenido arriba */}
           <Route path="/" element={<Navigate replace to={isAuthenticated ? "/home" : "/login"} />} />
-
-          {/* Resto de rutas (usando AuthRoute y ProtectedRoute que ya tienen useAuth interno) */}
           <Route path="/login" element={<AuthRoute><LoginPage /></AuthRoute>} />
           <Route path="/register" element={<AuthRoute><RegisterPage /></AuthRoute>} />
           <Route path="/home" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
@@ -81,7 +84,7 @@ function AppContent() {
           <Route path="/post/:postId" element={<ProtectedRoute><PostPage /></ProtectedRoute>} />
           <Route path="/user/:username" element={<ProtectedRoute><UserProfilePage /></ProtectedRoute>} />
           <Route path="/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
-          {/* <Route path="/search" element={<ProtectedRoute><SearchResultsPage /></ProtectedRoute>} /> */}
+          <Route path="/messages" element={<ProtectedRoute><MessagesPage /></ProtectedRoute>} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
@@ -89,7 +92,6 @@ function AppContent() {
   );
 }
 
-// --- Componente Principal App ---
 function App() {
   return (
     <AuthProvider>

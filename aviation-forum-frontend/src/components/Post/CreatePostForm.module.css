@@ -1,98 +1,85 @@
 /* src/components/Post/CreatePostForm.module.css */
-/* Importar clases compartidas si son necesarias (aunque podemos definirlas aquí) */
-/* @value formGroup, label, errorInput, errorMessage from '../Common/InputField.module.css'; */
 
 .createPostContainer {
-  /* Este contenedor es para dar espacio si el form no está en un Modal con padding */
-   /* padding: 1rem 0; */
-    width: 100%; /* Asegura que ocupe el ancho del modal/contenedor */
+   width: 100%;
 }
 
-/* Error General del Formulario */
 .formErrorOverall {
-   color: var(--color-error-text);
-   background-color: var(--color-error);
-   border: 1px solid var(--color-error-border);
-   padding: 0.75rem 1rem;
-   border-radius: var(--border-radius);
-   margin-bottom: 1rem;
-   font-size: 0.9rem;
-   text-align: left;
+  color: var(--color-error-text);
+  background-color: var(--color-error);
+  border: 1px solid var(--color-error-border);
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  text-align: left;
 }
 
-/* --- Estilos para Contenedor y Label (similares a InputField) --- */
 .formGroup {
-   margin-bottom: 1rem;
-   text-align: left;
+  margin-bottom: 1rem;
+  text-align: left;
 }
 .label {
-   display: block;
-   margin-bottom: 0.4rem;
-   font-weight: 500;
-   font-size: 0.9rem;
-   color: var(--color-text-primary);
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--color-text-primary);
 }
 .requiredMarker {
-   color: var(--color-dislike-active);
-   margin-left: 0.2em;
-}
-/* Mensaje de error debajo del textarea (similar a InputField) */
-.errorMessage {
-   margin-top: 0.4rem;
-   font-size: 0.85em;
-   color: var(--color-error-text);
-   display: block;
+  color: var(--color-dislike-active);
+  margin-left: 0.2em;
 }
 
-/* --- Textarea --- */
+.errorMessage {
+  margin-top: 0.4rem;
+  font-size: 0.85em;
+  color: var(--color-error-text);
+  display: block;
+}
+
 .textarea {
-   display: block;
-   width: 100%;
-   padding: 0.7rem 0.85rem;
-   font-size: 1rem;
-   line-height: 1.6; /* Buen interlineado para escribir */
-   color: var(--color-text-primary);
-   background-color: var(--color-surface);
-   border: 1px solid var(--color-border);
-   border-radius: var(--border-radius);
-   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-   resize: vertical;   /* Permitir redimensionar verticalmente */
-   min-height: 180px; /* Altura mínima considerable */
-   font-family: inherit; /* Usar la fuente general */
+  display: block;
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  resize: vertical;
+  min-height: 180px;
+  font-family: inherit;
 }
 .textarea:disabled {
-   background-color: var(--color-secondary);
-   opacity: 0.7;
-   cursor: not-allowed;
+  background-color: var(--color-secondary);
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 .textarea:focus {
-   border-color: var(--color-primary);
-   outline: 0;
-   box-shadow: 0 0 0 0.2rem rgba(160, 196, 255, 0.35);
+  border-color: var(--color-primary);
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(160, 196, 255, 0.35);
 }
 .textarea::placeholder {
-   color: var(--color-text-secondary);
-   opacity: 0.8;
+  color: var(--color-text-secondary);
+  opacity: 0.8;
 }
 
-/* Textarea con error */
-.errorInput { /* Clase añadida cuando hay error específico */
-   border-color: var(--color-error-border);
-   background-color: #fff7f7;
+.errorInput {
+  border-color: var(--color-error-border);
+  background-color: #fff7f7;
 }
 .errorInput:focus {
-   border-color: var(--color-error-text);
-   box-shadow: 0 0 0 0.2rem rgba(245, 198, 203, 0.35);
+  border-color: var(--color-error-text);
+  box-shadow: 0 0 0 0.2rem rgba(245, 198, 203, 0.35);
 }
 
-
-/* Contenedor de Acciones del Formulario */
 .formActions {
- display: flex;
- justify-content: flex-end; /* Botones a la derecha */
- gap: 0.75rem;              /* Espacio entre botones */
- margin-top: 1.5rem;          /* Espacio sobre los botones */
- /* Si NO usas footer de Modal, añade borde superior: */
- /* padding-top: 1rem; */
- /* border-top: 1px solid var(--color-border); */
+display: flex;
+justify-content: flex-end;
+gap: 0.75rem;
+margin-top: 1.5rem;
 }

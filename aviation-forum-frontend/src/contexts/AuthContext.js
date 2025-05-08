@@ -1,11 +1,10 @@
 // src/contexts/AuthContext.js
 import React, { createContext, useState, useEffect, useCallback, useMemo } from 'react';
-import { api } from '../services/api'; // Importa TU api.js simulado
-// Ya NO importamos LoadingSpinner aquí, se usa en App.js/ProtectedRoute
+import { api } from '../services/api';
 
-const AuthContext = createContext(null); // Crea el Context
+const AuthContext = createContext(null);
 
-export const AuthProvider = ({ children }) => { // EXPORTA el Provider
+export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -14,7 +13,7 @@ export const AuthProvider = ({ children }) => { // EXPORTA el Provider
     if (storedToken && api.verifyToken) {
       try {
         const userData = await api.verifyToken(storedToken);
-        const normalizedUser = { // Normaliza datos
+        const normalizedUser = {
           ...userData,
           friends: Array.isArray(userData.friends) ? userData.friends : [],
           subscribedForums: Array.isArray(userData.subscribedForums) ? userData.subscribedForums : [],
@@ -29,26 +28,21 @@ export const AuthProvider = ({ children }) => { // EXPORTA el Provider
     } else {
       if (user !== null) setUser(null);
     }
-    if (loading) setLoading(false); // Solo cambia loading en el check inicial
+    if (loading) setLoading(false);
+  }, [user, loading]);
 
-  }, [user, loading]); // Dependencia 'loading' para controlar cuándo setearlo a false
-
-  // Efecto inicial
   useEffect(() => {
      console.log("AuthProvider mounted. Running initial auth check.");
-     setLoading(true); // Marca cargando al inicio
-     checkAuthState(); // Ejecuta el chequeo
-     // setLoading(false) se maneja dentro de checkAuthState la primera vez
-     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Se ejecuta solo al montar
+     setLoading(true);
+     checkAuthState();
+  }, []);
 
-
-  const login = async (email, password) => { /* ... (código sin cambios) ... */
+  const login = async (email, password) => {
     if (!api.login) throw new Error("Login function not found in API");
     try {
       const { user: userData, token } = await api.login(email, password);
       localStorage.setItem('authToken', token);
-      const normalizedUser = { /* ... (normalización) ... */
+      const normalizedUser = {
         ...userData,
         friends: Array.isArray(userData.friends) ? userData.friends : [],
         subscribedForums: Array.isArray(userData.subscribedForums) ? userData.subscribedForums : [],
@@ -61,7 +55,7 @@ export const AuthProvider = ({ children }) => { // EXPORTA el Provider
     }
   };
 
-  const register = async (userData) => { /* ... (código sin cambios) ... */
+  const register = async (userData) => {
     if (!api.register) throw new Error("Register function not found in API");
     try {
       const result = await api.register(userData);
@@ -73,13 +67,13 @@ export const AuthProvider = ({ children }) => { // EXPORTA el Provider
     }
   };
 
-  const logout = useCallback(() => { /* ... (código sin cambios) ... */
+  const logout = useCallback(() => {
     console.log("Logging out user...");
     localStorage.removeItem('authToken');
     setUser(null);
   }, []);
 
-  const loginWithOAuth = useCallback(async (provider) => { /* ... (código sin cambios) ... */
+  const loginWithOAuth = useCallback(async (provider) => {
     console.warn(`TODO: Implement real ${provider} Login`);
     alert(`Simulated ${provider} Login! Needs backend integration.`);
     const mockOAuthUser = { id: `${provider}User${Date.now()}`, username: `${provider}Flyer`, email: `${provider.toLowerCase()}@example.com`, friends: [], subscribedForums: [] };
@@ -91,13 +85,13 @@ export const AuthProvider = ({ children }) => { // EXPORTA el Provider
   const loginWithGoogle = useCallback(() => loginWithOAuth('Google'), [loginWithOAuth]);
   const loginWithFacebook = useCallback(() => loginWithOAuth('Facebook'), [loginWithOAuth]);
 
-  const isModerator = useCallback((forumId) => { /* ... (código sin cambios) ... */
+  const isModerator = useCallback((forumId) => {
     if (!user || !forumId || !api.mockForums) return false;
      const forum = api.mockForums[forumId];
      return !!forum && forum.creator === user.id;
   }, [user]);
 
-  const value = useMemo(() => ({ /* ... (código sin cambios) ... */
+  const value = useMemo(() => ({
     user, isAuthenticated: !!user, loading, login, register, logout,
     loginWithGoogle, loginWithFacebook, checkAuthState, isModerator,
   }), [user, loading, logout, loginWithGoogle, loginWithFacebook, checkAuthState, isModerator]);
@@ -109,8 +103,4 @@ export const AuthProvider = ({ children }) => { // EXPORTA el Provider
   );
 };
 
-// Exporta el Context por defecto para poder usar useContext(AuthContext) si se necesita
 export default AuthContext;
-
-// NO exportamos useAuth desde aquí
-// // export const useAuth = () => useContext(AuthContext); // INCORRECTO

@@ -1,159 +1,147 @@
-/* src/components/User/UserProfileHeader.module.css */
 .profileHeader {
-    /* Usa .card base, pero quitamos padding y ajustamos */
     padding: 0;
     margin-bottom: 1.5rem;
-    position: relative; /* Para banner y overlap */
-    overflow: visible;  /* Permite que el avatar sobresalga */
-    border-radius: var(--border-radius); /* Redondeo general */
-     background-color: var(--color-surface); /* Fondo base */
+    position: relative;
+    overflow: visible;
+    border-radius: var(--border-radius);
+    background-color: var(--color-surface);
 }
- /* Estado de Carga */
- .loading {
-     min-height: 300px; display: flex; align-items: center; justify-content: center;
-     font-style: italic; color: var(--color-text-secondary);
- }
 
+.loading {
+    min-height: 300px; display: flex; align-items: center; justify-content: center;
+    font-style: italic; color: var(--color-text-secondary);
+}
 
-/* Banner Opcional */
 .bannerPlaceholder {
-    height: 150px; /* Altura del banner */
+    height: 150px;
     background-color: var(--color-secondary);
     background-size: cover; background-position: center;
-    border-radius: var(--border-radius) var(--border-radius) 0 0; /* Redondeo superior */
-     /* border-bottom: 1px solid var(--color-border); */
-     margin-bottom: -60px; /* Empuja contenido hacia arriba (mitad avatar) */
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    margin-bottom: -60px;
 }
 
-/* Contenido Principal (Avatar + Info/Acciones) */
 .headerContent {
     display: flex;
-    flex-direction: column; /* Avatar arriba, info abajo por defecto */
-    align-items: center;   /* Centrar avatar por defecto */
-    padding: 0 1.5rem 1.5rem 1.5rem; /* Padding (sin arriba por banner) */
-     position: relative; /* Para que esté sobre el banner si se usa margin negativo */
-     z-index: 1;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    position: relative;
+    z-index: 1;
 }
- @media (min-width: 768px) { /* Lado a lado en escritorio */
+
+@media (min-width: 768px) {
     .headerContent {
-       flex-direction: row;     /* Avatar izquierda, info derecha */
-       align-items: flex-end; /* Alinear bases del avatar e info */
-       gap: 1.5rem;            /* Espacio entre avatar e info */
-       padding: 1.5rem;        /* Padding completo en escritorio */
-        margin-top: -70px; /* Ajusta overlap si el avatar es más grande */
+        flex-direction: row;
+        align-items: flex-end;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        margin-top: -70px;
     }
 }
 
-/* Contenedor del Avatar */
 .avatarSection {
-   flex-shrink: 0; /* Evita que el avatar se encoja */
-   margin-bottom: 1rem; /* Espacio debajo en móvil */
-   position: relative; /* Para cualquier pseudo-elemento o badge */
-   z-index: 2; /* Avatar sobre cualquier fondo del banner */
+   flex-shrink: 0;
+   margin-bottom: 1rem;
+   position: relative;
+   z-index: 2;
 }
- @media (min-width: 768px) {
+
+@media (min-width: 768px) {
     .avatarSection { margin-bottom: 0; }
- }
+}
 
-
-/* Avatar Grande */
 .avatarLarge {
-    width: 130px;   /* Tamaño grande */
+    width: 130px;
     height: 130px;
-    font-size: 4rem; /* Tamaño inicial grande */
-    border: 5px solid var(--color-surface); /* Borde blanco */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sombra */
-    /* Hereda .avatar-placeholder base */
-     position: relative; /* Para que z-index funcione */
-     background-color: var(--color-primary); /* Fallback */
+    font-size: 4rem;
+    border: 5px solid var(--color-surface);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    position: relative;
+    background-color: var(--color-primary);
 }
 
-/* Contenedor Info y Acciones */
 .infoAndActions {
-   flex-grow: 1;        /* Ocupa espacio restante */
-   width: 100%;        /* Ocupa ancho en móvil */
-   min-width: 0;        /* Previene overflow */
+   flex-grow: 1;
+   width: 100%;
+   min-width: 0;
    display: flex;
-   flex-direction: column; /* Apila contenido interno */
-   align-items: center;   /* Centra contenido en móvil */
+   flex-direction: column;
+   align-items: center;
    text-align: center;
-   /* background-color: var(--color-surface); */ /* Fondo opcional si no hereda de card */
-   /* padding: 1rem; */ /* Padding opcional */
-   /* border-radius: var(--border-radius); */
 }
+
 @media (min-width: 768px) {
     .infoAndActions {
-       align-items: flex-start; /* Alinea a la izquierda */
+       align-items: flex-start;
        text-align: left;
     }
 }
 
-/* Fila Nombre y Botones */
 .nameActionsRow {
     display: flex;
-    flex-direction: column; /* Nombre arriba, botón abajo en móvil */
-    align-items: center;   /* Centrado */
-    gap: 0.8rem;           /* Espacio */
-    margin-bottom: 1rem;   /* Espacio antes de la bio */
-    width: 100%;           /* Ocupa ancho */
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+    width: 100%;
 }
+
 @media (min-width: 768px) {
     .nameActionsRow {
-       flex-direction: row;   /* Lado a lado */
-       justify-content: space-between; /* Nombre izquierda, botón derecha */
+       flex-direction: row;
+       justify-content: space-between;
        align-items: center;
-       margin-bottom: 0.8rem; /* Menos espacio antes de bio */
+       margin-bottom: 0.8rem;
     }
 }
 
-/* Nombre de Usuario */
 .username {
-    font-size: clamp(1.6rem, 5vw, 2rem); /* Responsivo */
+    font-size: clamp(1.6rem, 5vw, 2rem);
     font-weight: 700;
     margin: 0; line-height: 1.2;
     color: var(--color-text-primary);
-    word-break: break-all; /* Evita que nombres largos rompan layout */
+    word-break: break-all;
 }
 
-/* Contenedor de botones de acción (Editar/Amigo) */
 .actions { flex-shrink: 0; }
 
-/* Biografía */
 .bio {
     font-size: 1rem;
     color: var(--color-text-secondary);
     margin-bottom: 1.5rem;
     line-height: 1.6;
-    max-width: 650px;    /* Limita ancho */
-     margin-left: auto; margin-right: auto; /* Centra en móvil */
-     white-space: pre-wrap; /* Respeta saltos de línea si hay */
+    max-width: 650px;
+    margin-left: auto; margin-right: auto;
+    white-space: pre-wrap;
 }
- @media (min-width: 768px) {
-    .bio { margin-left: 0; margin-right: 0; } /* Alinear izquierda */
- }
 
-/* Estadísticas */
+@media (min-width: 768px) {
+    .bio { margin-left: 0; margin-right: 0; }
+}
+
 .stats {
     display: flex;
-    flex-wrap: wrap;         /* Permite ajuste */
-    justify-content: center; /* Centrado en móvil */
-    gap: 0.75rem 1.5rem;     /* Espaciado */
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem 1.5rem;
     font-size: 0.9rem;
     color: var(--color-text-secondary);
-    width: 100%;             /* Ocupa ancho para justificar */
-    padding-top: 1rem;      /* Espacio antes de stats */
-    border-top: 1px solid var(--color-secondary); /* Separador */
+    width: 100%;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-secondary);
 }
+
 @media (min-width: 768px) {
-    .stats { justify-content: flex-start; } /* Alinear izquierda */
+    .stats { justify-content: flex-start; }
 }
 
 .statItem {
     display: inline-flex; align-items: center; gap: 0.4rem;
     font-weight: 500;
-    white-space: nowrap;     /* No partir un stat */
+    white-space: nowrap;
 }
- .statItem svg {
-    color: var(--color-primary-dark); /* Color icono */
-     font-size: 0.95em;
- }
+
+.statItem svg {
+    color: var(--color-primary-dark);
+    font-size: 0.95em;
+}

@@ -3,166 +3,162 @@
   display: flex;
   transition: box-shadow 0.2s ease-in-out, border-color 0.15s ease;
   position: relative;
-  /* Usa .card base */
-  /* padding: 1rem; Sobreescribe padding de .card si es necesario */
 }
+
 .postCard:hover {
   border-color: var(--color-border);
   box-shadow: var(--box-shadow-lg);
 }
 
-/* Estado de Carga/Placeholder */
 .loadingState {
   min-height: 120px;
   display: flex; align-items: center; justify-content: center;
   color: var(--color-text-secondary); font-style: italic;
-   opacity: 0.7;
+  opacity: 0.7;
 }
 
-/* Contenido principal */
 .postContent {
-flex-grow: 1;
-display: flex;
-flex-direction: column; /* Apila header, título, footer */
-min-width: 0; /* Para que el contenido no desborde */
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 
-/* Cabecera (Foro, User, Tiempo) */
 .postHeader {
-display: flex;
-align-items: center;
-flex-wrap: wrap; /* Permite que elementos bajen si no caben */
-gap: 0.3rem 0.6rem; /* Espacio vertical y horizontal */
-font-size: 0.8rem; /* Texto pequeño */
-color: var(--color-text-secondary);
-margin-bottom: 0.75rem; /* Espacio antes del título */
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.75rem;
 }
+
 .separator {
-color: var(--color-border);
-padding: 0 0.1rem;
-font-size: 0.8em; /* Más pequeño */
- opacity: 0.7;
+  color: var(--color-border);
+  padding: 0 0.1rem;
+  font-size: 0.8em;
+  opacity: 0.7;
 }
 
 .forumLink {
-font-weight: 600;
-color: var(--color-primary-dark);
-text-decoration: none;
-white-space: nowrap; /* Evita partir el nombre del foro */
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  text-decoration: none;
+  white-space: nowrap;
 }
+
 .forumLink:hover { text-decoration: underline; color: var(--color-primary); }
 
 .userInfo { display: inline-flex; align-items: center; gap: 0.3rem; flex-shrink: 0; }
+
 .userLink {
-color: var(--color-text-secondary); /* Color secundario para el link */
-text-decoration: none;
-font-weight: 500;
- display: inline-flex; align-items: center; gap: 0.4rem; /* Espacio avatar/nombre */
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex; align-items: center; gap: 0.4rem;
 }
+
 .userLink:hover { text-decoration: underline; color: var(--color-text-primary); }
 
-/* Avatar en la tarjeta */
 .avatarPostCard {
- width: 20px; height: 20px; font-size: 0.7rem;
- /* Hereda .avatar-placeholder base */
-  border-width: 1px; /* Borde más fino */
+  width: 20px; height: 20px; font-size: 0.7rem;
+  border-width: 1px;
 }
 
-/* Tiempo (link al post) */
 .timeLink {
- text-decoration: none; color: inherit; /* Mismo color que texto secundario */
- margin-left: auto;     /* Empuja a la derecha */
- padding-left: 0.5rem;   /* Espacio si está junto a otro elemento */
- white-space: nowrap;
+  text-decoration: none; color: inherit;
+  margin-left: auto;
+  padding-left: 0.5rem;
+  white-space: nowrap;
 }
+
 .timeLink:hover { text-decoration: underline; }
-.postTime {}
 
-@media (max-width: 500px) { /* Ajuste para móvil */
-   .timeLink { margin-left: 0; flex-basis: 100%; margin-top: 0.2rem;}
+@media (max-width: 500px) {
+  .timeLink { margin-left: 0; flex-basis: 100%; margin-top: 0.2rem;}
 }
 
-
-/* Título */
 .titleLink {
-text-decoration: none;
-color: inherit;
- display: block;         /* Ocupa su línea */
- margin-bottom: 0.6rem;  /* Espacio antes del footer/descripción */
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  margin-bottom: 0.6rem;
 }
+
 .postTitle {
-margin: 0;
-font-size: 1.2rem;      /* Tamaño título en tarjeta */
-font-weight: 600;
-color: var(--color-text-primary);
-line-height: 1.35;       /* Interlineado */
-transition: color 0.2s ease;
-word-wrap: break-word;  /* Permite partir palabras largas */
-overflow-wrap: break-word;
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.35;
+  transition: color 0.2s ease;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
+
 .titleLink:hover .postTitle { color: var(--color-primary-dark); }
 
-/* Descripción (si se muestra snippet) */
 .postDescription {
-font-size: 0.9rem; color: var(--color-text-secondary);
-line-height: 1.5; margin-bottom: 1rem;
- display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
- overflow: hidden; text-overflow: ellipsis;
+  font-size: 0.9rem; color: var(--color-text-secondary);
+  line-height: 1.5; margin-bottom: 1rem;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden; text-overflow: ellipsis;
 }
 
-/* Pie de la tarjeta */
 .postFooter {
-display: flex;
-align-items: center;
-flex-wrap: wrap;         /* Ajuste en móvil */
-gap: 0.5rem 1rem;       /* Espacio entre acciones */
-margin-top: auto;       /* Empuja al fondo */
-padding-top: 0.75rem;
-border-top: 1px solid var(--color-secondary); /* Borde separador */
-font-size: 0.85rem;     /* Texto de acciones */
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-secondary);
+  font-size: 0.85rem;
 }
 
-/* Estilo base para botones de acción en footer */
 .actionButton {
   color: var(--color-text-secondary);
   display: inline-flex; align-items: center; gap: 0.4rem;
   text-decoration: none;
   transition: color 0.2s ease, background-color 0.2s ease;
   font-weight: 500;
-  padding: 0.35rem 0.6rem; /* Padding ajustado */
+  padding: 0.35rem 0.6rem;
   border-radius: var(--border-radius);
   background: none; border: none; cursor: pointer;
-   line-height: 1; /* Evita espacio extra vertical */
-}
-.actionButton:hover:not(:disabled) {
-color: var(--color-primary-dark);
-background-color: var(--color-secondary);
-}
-.actionButton:disabled {
-   opacity: 0.6; cursor: not-allowed;
-}
-.actionButton svg {
-  font-size: 1em; /* Icono relativo a texto */
-   /* vertical-align: middle; Podría necesitar ajuste */
+  line-height: 1;
 }
 
-/* Texto numérico y etiqueta de acción */
+.actionButton:hover:not(:disabled) {
+  color: var(--color-primary-dark);
+  background-color: var(--color-secondary);
+}
+
+.actionButton:disabled {
+  opacity: 0.6; cursor: not-allowed;
+}
+
+.actionButton svg {
+  font-size: 1em;
+}
+
 .actionText { font-weight: 600; }
-.actionLabel { display: none; } /* Oculto en tarjeta por defecto */
+.actionLabel { display: none; }
 @media (min-width: 576px) { .actionLabel { display: inline; margin-left: 0.2em; } }
 
-/* Botones específicos */
-.commentsLink {} /* Ya tiene estilo base */
+.commentsLink {}
 
 .deleteButton {
-  color: var(--color-dislike-active); /* Rojo */
-  margin-left: auto;             /* Empuja a la derecha */
-}
-.deleteButton:hover:not(:disabled) {
-   background-color: rgba(230, 57, 70, 0.1); /* Fondo rojo claro hover */
+  color: var(--color-dislike-active);
+  margin-left: auto;
 }
 
-.bookmarked svg { /* Icono más oscuro si está guardado */
+.deleteButton:hover:not(:disabled) {
+  background-color: rgba(230, 57, 70, 0.1);
+}
+
+.bookmarked svg {
   color: var(--color-primary-dark);
 }
-.deleteText {} /* Oculto por .actionLabel */
+
+.deleteText {}
